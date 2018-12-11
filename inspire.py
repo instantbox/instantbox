@@ -122,14 +122,13 @@ def rmOS():
     else:
         # 先验一次redis
         try:
-            subprocess.check_output("docker rm -f {0}".format(rand_string), shell=True)
+            subprocess.check_output("docker rm -f {0}".format(containerId), shell=True)
         except:
             response = Response(
                 json.dumps({
                     "message":"RM docker containers error",
                     "shareUrl":"", 
                     "statusCode":0,
-                    "containerId":rand_string,
                     }
                 ),
                 mimetype = 'application/json'
@@ -138,7 +137,8 @@ def rmOS():
             response = Response(
                 json.dumps({
                     "message":"SUCCESS", 
-                    "statusCode":1
+                    "statusCode":1,
+                    "containerId":containerId,                    
                     }
                 ), 
                 mimetype = 'application/json'
