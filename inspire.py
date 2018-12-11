@@ -23,46 +23,89 @@ OS_SWITCH = {
     "10002":"Ubuntu_16.04",
     "10003":"Ubuntu_18.04",
     "10004":"Ubuntu_latest",
-    "20000":"CentOS_7",
-    "20001":"CentOS_6.10",
+    "20000":"CentOS_6.10",
+    "20001":"CentOS_7",
     "20002":"CentOS_latest",
     "30000":"2018.12.01",
     "30001":"Arch_latest",
     "40000":"Debian_9.6.0",
     "40001":"Debian_latest",
-    "50000":"Fedora_29",
-    "50001":"Fedora_28",
+    "50000":"Fedora_28",
+    "50001":"Fedora_29",
     "50002":"Fedora_latest",
 }
 
-OS_LIST = {
-    "Ubuntu":{
-        '12.04':"10000",
-        '14.04':"10001", 
-        '16.04':"10002", 
-        '18.04':"10003",
-        'latest':"10004",
-        },
-    "CentOS":{
-        '7':"20000",
-        '6.10':"20001",
-        'latest':"20002",
-        },
-    "Arch Linux":{
-        "2018.12.01":"30000",
-        "latest":"30001",
-        },
-    "Debian":{
-        "9.6.0":"40000",
-        "latest":"40001",
-        },
-    "Fedora":{
-        "29":"50000",
-        "28":"50001",
-        "latest":"50002",
-        },
+OS_LIST = [{
+    "label": "Ubuntu",
+    "value": "Ubuntu",
+    "subList":[{
+        'label':"12.04",
+        'osCode':"10000"
+        }, {
+        'label':"14.04",
+        'osCode':"10001"
+        }, {
+        'label':"16.04",
+        'osCode':"10002"
+        }, {
+        'label':"18.04",
+        'osCode':"10003"
+        }, {
+        'label':"latest",
+        'osCode':"10004"
+        }
+    ]}, {
+    "label": "CentOS",
+    "value": "CentOS",
+    "subList":[{
+        'label':"6.10",
+        'osCode':"20000"
+        }, {
+        'label':"7",
+        'osCode':"20001"
+        }, {
+        'label':"latest",
+        'osCode':"20002"
+        }
+    ]}, {
 
-    }
+    "label": "Arch Linux",
+    "value": "Arch Linux",
+    "subList":[{
+        'label':"2018.12.01",
+        'osCode':"30000"
+        }, {
+        'label':"latest",
+        'osCode':"30001"
+        }
+    ]}, {
+
+    "label": "Debian",
+    "value": "Debian",
+    "subList":[{
+        'label':"9.6.0",
+        'osCode':"40000"
+        }, {
+        'label':"latest",
+        'osCode':"40001"
+        }, 
+    ]}, {
+
+    "label": "Fedora",
+    "value": "Fedora",
+    "subList":[{
+        'label':"28",
+        'osCode':"50000"
+        }, {
+        'label':"29",
+        'osCode':"50001"
+        }, {
+        'label':"latest",
+        'osCode':"50002"
+        },
+    ]}, 
+
+]
 
 
 def randPort():

@@ -23,13 +23,13 @@
 格式：
 
 ```
-http://115.238.228.39/superinspire/v1/{relative_path}?{query_string}
+http://115.238.228.39/v1/superspire/{relative_path}?{query_string}
 ```
 
 举例：
 
 ```
-http://115.238.228.39:65527/superinspire/v1/getOS?os=10000
+http://115.238.228.39:65527/v1/superspire/getOS?os=10000
 ```
 
 ### 参数说明
@@ -94,34 +94,77 @@ GET /v1/superspire/getOSList
 
 ```json
 # 返回范例
-	{
-        "Ubuntu":{
-            '12.04':"10000",
-            '14.04':"10001", 
-            '16.04':"10002", 
-            '18.04':"10003",
-            'latest':"10004",
-            },
-        "CentOS":{
-            '7':"20000",
-            '6.10':"20001",
-            'latest':"20002",
-            },
-        "Arch Linux":{
-            "2018.12.01":"30000",
-            "latest":"30001",
-            },
-        "Debian":{
-            "9.6.0":"40000",
-            "latest":"40001",
-            },
-        "Fedora":{
-            "29":"50000",
-            "28":"50001",
-            "latest":"50002",
-            },
-    }
+[{
+    "label": "Ubuntu",
+    "value": "Ubuntu",
+    "subList":[{
+        'label':"12.04",
+        'osCode':"10000"
+        }, {
+        'label':"14.04",
+        'osCode':"10001"
+        }, {
+        'label':"16.04",
+        'osCode':"10002"
+        }, {
+        'label':"18.04",
+        'osCode':"10003"
+        }, {
+        'label':"latest",
+        'osCode':"10004"
+        }
+    ]}, {
+    "label": "CentOS",
+    "value": "CentOS",
+    "subList":[{
+        'label':"6.10",
+        'osCode':"20000"
+        }, {
+        'label':"7",
+        'osCode':"20001"
+        }, {
+        'label':"latest",
+        'osCode':"20002"
+        }
+    ]}, {
 
+    "label": "Arch Linux",
+    "value": "Arch Linux",
+    "subList":[{
+        'label':"2018.12.01",
+        'osCode':"30000"
+        }, {
+        'label':"latest",
+        'osCode':"30001"
+        }
+    ]}, {
+
+    "label": "Debian",
+    "value": "Debian",
+    "subList":[{
+        'label':"9.6.0",
+        'osCode':"40000"
+        }, {
+        'label':"latest",
+        'osCode':"40001"
+        }, 
+    ]}, {
+
+    "label": "Fedora",
+    "value": "Fedora",
+    "subList":[{
+        'label':"28",
+        'osCode':"50000"
+        }, {
+        'label':"29",
+        'osCode':"50001"
+        }, {
+        'label':"latest",
+        'osCode':"50002"
+        },
+    ]}, 
+
+]
 ```
 
 ### 生成容器
