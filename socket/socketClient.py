@@ -1,19 +1,40 @@
+import time
 from socket import *
- 
+import random
+import string
+import subprocess
+
 s = socket(AF_UNIX,SOCK_STREAM)
 server_address = './uds_socket'
 
 
 s.connect(server_address)
- 
-sendMe=input("Enter your Msg:")
 
-#通过send方法和recv方法通信。
-#数据传递不能使用str类型，必须转化成二进制，“Hello”.encode()或b"Hello"
+def genString():
+    salt = ''.join(random.sample(string.ascii_letters + string.digits, 16))
+    return salt
 
-s.send(sendMe.encode())
-data = s.recv(1024)
+count = 0
 
-print("Received from serve:",data.decode())
- 
+while True:
+    sendMe = genString()
+
+    print("发出数据: ", sendMe)
+    s.send(sendMe.encode())
+    subprocess.check_output("echo {} >> ./dataSend.txt".format(sendMe), shell=True)
+
+    time.sleep(1)
+
+    # data = s.recv(1024)
+    # if data == None:
+    #     break
+    # print("Received from serve:",data.decode())
+    count += 1
+    if count == 10:
+        s.send('0000exit'.encode())
+
+        break
+
+
 s.close() 
+
