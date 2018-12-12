@@ -210,40 +210,73 @@ def getOS():
             mimetype = 'application/json'
         )
     else:
-        if os_info not in OS_SWITCH:
-            response = Response(
-                json.dumps({
-                    "message":"OS_SWITCH ERROR", 
-                    "statusCode":0
-                    }
-                ), 
-                mimetype = 'application/json'
-            )
-
+        try:
+            os_mem = request.args.get("mem")
+            os_cpu = request.args.get("cpu")
+            os_port = request.args.get("port")
+            os_timeout = request.args.get("timeout")
+        except:
+            if os_info not in OS_SWITCH:
+                response = Response(
+                    json.dumps({
+                        "message":"OS_SWITCH ERROR", 
+                        "statusCode":0
+                        }
+                    ), 
+                    mimetype = 'application/json'
+                )
         else:
-            rand_port = randPort()
+
+            if os_mem == None:
+                os_mem = 512
+            if os_cpu == None:
+                os_cpu = 1
+            if os_timeout:
+                os_timeout = 3600*24
+
             rand_string = genString()
             try:
                 # 存redis
-                subprocess.check_output(
-                    "docker run -d -p {0}:30000 --name=\"{5}\" catone/inspire:{1} rtty -I \"{2}\" -h {3} -p {4} -a\
-                     -v -s".format(
-                        rand_port, 
-                        OS_SWITCH[os_info], 
-                        rand_string, 
-                        SERVERURL, 
-                        SERVERPORT, 
-                        rand_string,
-                        ),
-                    shell=True
-                )
+                if os_port == None:
+                    subprocess.check_output(
+                        "docker run -d -m {5}m --cpu-period=100000 --device-write-bps=\"/dev/mapper/centos-root:1mb\" \
+                        --cpu-quota={6}0000 --name=\"{4}\" catone/inspire:{0} rtty -I \"{1}\" \
+                        -h {2} -p {3} -a -v -s".format(
+                            OS_SWITCH[os_info], 
+                            rand_string, 
+                            SERVERURL, 
+                            SERVERPORT, 
+                            rand_string,
+                            os_mem,
+                            os_cpu,
+
+                            ),
+                        shell=True
+                    )
+                else:
+                    subprocess.check_output(
+                        "docker run -d -p {7}:{8} -m {5}m  --device-write-bps=\"1mb\" \
+                        -cpu-quota={6} --name=\"{4}\" catone/inspire:{0} rtty -I \"{1}\" \
+                        -h {2} -p {3} -a -v -s".format(
+                            OS_SWITCH[os_info], 
+                            rand_string, 
+                            SERVERURL, 
+                            SERVERPORT, 
+                            rand_string,
+                            os_mem,
+                            int(os_cpu),
+                            randPort(),
+                            os_port,
+                            ),
+                        shell=True
+                    )
+
             except:
                 response = Response(
                     json.dumps({
                         "message":"RUN docker containers error", 
                         "shareUrl":"", 
                         "statusCode":0,
-                        "containerId":rand_string,
                         }
                     ),
                     mimetype = 'application/json'
@@ -253,7 +286,8 @@ def getOS():
                     json.dumps({
                         "message":"SUCCESS", 
                         "shareUrl":shareUrl.format(rand_string), 
-                        "statusCode":1
+                        "statusCode":1,
+                        "containerId":rand_string,                        
                         }
                     ), 
                     mimetype = 'application/json'
@@ -274,6 +308,6 @@ def getOS():
 
 if __name__ == '__main__':
 
-    app.run(host="0.0.0.0", port=int(65527), debug = False)
+    app.run(host="0.0.0.0", port=int(65501), debug = False)
 
 
