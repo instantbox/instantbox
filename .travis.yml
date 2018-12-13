@@ -1,0 +1,28 @@
+sudo: required
+
+language: python
+  
+python:
+  - "3.6"
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install sshpass
+
+
+services:
+  - docker
+
+script:
+  - docker build -t="catone/inspire:pre_build" -f ./Dockerfile .
+  - docker run -d -P --name="inspire" catone/inspire:pre_build
+  - docker rm -f free_file_test || true
+  
+
+notifications:
+  email: true
+
+after_success:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker tag catone/inspire:pre_build catone/inspire:latest
+  - docker push catone/inspire:latest

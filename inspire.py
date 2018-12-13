@@ -17,7 +17,7 @@ CORS(app, resources=r'/*')
 
 
 SERVERURL = '115.238.228.39'
-SERVERPORT = '9999'
+SERVERPORT = '9990'
 
 OS_SWITCH = {
     "10000":"Ubuntu_12.04",
