@@ -1,5 +1,7 @@
 import re
 import string
+import redis
+import time
 import random
 import sys
 import json
@@ -232,7 +234,7 @@ def getOS():
             if os_cpu == None:
                 os_cpu = 1
             if os_timeout:
-                os_timeout = 3600*24
+                os_timeout = 3600*24+time.time()
 
             rand_string = genString()
             try:
@@ -255,8 +257,8 @@ def getOS():
                     )
                 else:
                     subprocess.check_output(
-                        "docker run -d -p {7}:{8} -m {5}m  --device-write-bps=\"1mb\" \
-                        -cpu-quota={6} --name=\"{4}\" catone/inspire:{0} rtty -I \"{1}\" \
+                        "docker run -d -p {7}:{8} -m {5}m  --device-write-bps=\"/dev/mapper/centos-root:1mb\" \
+                        --cpu-quota={6}0000 --name=\"{4}\" catone/inspire:{0} rtty -I \"{1}\" \
                         -h {2} -p {3} -a -v -s".format(
                             OS_SWITCH[os_info], 
                             rand_string, 

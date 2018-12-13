@@ -23,13 +23,13 @@
 格式：
 
 ```
-http://115.238.228.39/v1/superspire/{relative_path}?{query_string}
+http://115.238.228.39:65500/v1/superspire/{relative_path}?{query_string}
 ```
 
 举例：
 
 ```
-http://115.238.228.39:65527/v1/superspire/getOS?os=10000
+http://115.238.228.39:65500/v1/superspire/getOS?os=10000
 ```
 
 ### 参数说明
@@ -180,7 +180,7 @@ GET /getOS
 | os      | string       | 指定系统请求编码                                | 是   | 10000      |
 | timeout | string       | 容器最长存活时间时间戳[当前时间戳+存活时间长度] | 否   | 1544514176 |
 | cpu     | string(Core) | 请求赋予CPU资源使用限制                         | 否   | 1          |
-| mem     | string(GB)   | 请求赋予mem资源使用限制                         | 否   | 0.5        |
+| mem     | string(MB)   | 请求赋予mem资源使用限制                         | 否   | 512        |
 | port    | string       | 开放的端口, 目前只允许开放一个端口              | 否   | 80         |
 
 #### 返回
@@ -191,8 +191,6 @@ GET /getOS
 | message     | string  | 状态解读                 | 是   |
 | shareUrl    | string  | 容器Url地址              | 否   |
 | containerId | string  | 容器标识码               | 否   |
-|             |         |                          |      |
-|             |         |                          |      |
 
 
 
