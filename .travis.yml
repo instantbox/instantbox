@@ -1,0 +1,31 @@
+sudo: required
+
+language: python
+  
+python:
+  - "3.6"
+
+before_install:
+  - sudo apt-get update
+  - sudo apt-get install sshpass
+
+
+install:
+  - pip install -r ./server/requirements.txt
+
+services:
+  - docker
+
+script:
+  - docker build -t="catone/freefile:pre_build" -f ./server/Dockerfile ./server/
+  - docker run -d -P --name="free_file_test" catone/freefile:pre_build
+  - docker rm -f free_file_test || true
+  
+
+notifications:
+  email: true
+
+after_success:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker tag catone/freefile:pre_build catone/freefile:latest
+  - docker push catone/freefile:latest
