@@ -241,7 +241,7 @@ def getOS():
                 # 存redis
                 if os_port == None:
                     subprocess.check_output(
-                        "docker run -d -m {5}m --cpu-period=100000 --device-write-bps=\"/dev/mapper/centos-root:1mb\" \
+                        "docker run -d -t -m {5}m --cpu-period=100000 --device-write-bps=\"/dev/mapper/centos-root:1mb\" \
                         --cpu-quota={6}0000 --name=\"{4}\" catone/inspire:{0} rtty -I \"{1}\" \
                         -h {2} -p {3} -a -v -s".format(
                             OS_SWITCH[os_info], 
@@ -251,13 +251,12 @@ def getOS():
                             rand_string,
                             os_mem,
                             os_cpu,
-
                             ),
                         shell=True
                     )
                 else:
                     subprocess.check_output(
-                        "docker run -d -p {7}:{8} -m {5}m  --device-write-bps=\"/dev/mapper/centos-root:1mb\" \
+                        "docker run -d -p {7}:{8} -t -m {5}m  --device-write-bps=\"/dev/mapper/centos-root:1mb\" \
                         --cpu-quota={6}0000 --name=\"{4}\" catone/inspire:{0} rtty -I \"{1}\" \
                         -h {2} -p {3} -a -v -s".format(
                             OS_SWITCH[os_info], 
