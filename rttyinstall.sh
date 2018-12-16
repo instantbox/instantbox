@@ -16,9 +16,9 @@ show_distribution() {
     then
         . /etc/os-release
         pretty_name="$PRETTY_NAME"
-        # 获得发行版的名字
+
         LSB_ID="$(echo "$ID" | tr '[:upper:]' '[:lower:]')"
-        # 将系统版本都变成全小写
+
     elif [ -f /etc/redhat-release ];
     then
         pretty_name=$(cat /etc/redhat-release)
@@ -135,3 +135,4 @@ case "$LSB_ID" in
 esac
 
 rtty -V
+

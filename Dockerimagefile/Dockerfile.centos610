@@ -8,4 +8,4 @@ COPY ./login /etc/pam.d/login
 
 RUN echo "root:123456" | chpasswd
 
-CMD rtty -I 'My-device-ID' -h '115.238.228.39' -p 9999 -a -v 
+CMD rtty -I 'My-device-ID' -h $SERVERURL -p $SERVERPORT -a -v 

@@ -4,6 +4,7 @@ import redis
 import time
 import random
 import sys
+import os
 import json
 import subprocess
 from flask_cors import CORS
@@ -16,8 +17,8 @@ app = Flask(__name__)
 CORS(app, resources=r'/*')
 
 
-SERVERURL = '115.238.228.39'
-SERVERPORT = '9990'
+SERVERURL = os.environ.get('SERVERURL')
+SERVERPORT = os.environ.get('SERVERPORT')
 
 OS_SWITCH = {
     "10000":"Ubuntu_12.04",
@@ -36,6 +37,8 @@ OS_SWITCH = {
     "50001":"Fedora_29",
     "50002":"Fedora_latest",
 }
+
+
 
 OS_LIST = [{
     "label": "Ubuntu",
@@ -90,7 +93,7 @@ OS_LIST = [{
         }, {
         'label':"latest",
         'osCode':"40001"
-        }, 
+        },
     ]}, {
 
     "label": "Fedora",
@@ -105,10 +108,9 @@ OS_LIST = [{
         'label':"latest",
         'osCode':"50002"
         },
-    ]}, 
+    ]},
 
 ]
-
 
 def randPort():
     rand_port = random.randint(1025, 65536)
@@ -198,7 +200,7 @@ def rmOS():
 
 @app.route('/v1/superspire/getOS')
 def getOS():
-    shareUrl = "https://115.238.228.39:9999/#/?id={0}&username=root&password=123456"
+    shareUrl = 'https://'+SERVERURL+":"+SERVERPORT+"/#/?id={0}&username=root&password=123456"
 
     try:
         os_info = request.args.get("os")
@@ -241,7 +243,7 @@ def getOS():
                 # 存redis
                 if os_port == None:
                     subprocess.check_output(
-                        "docker run -d -t -m {5}m --cpu-period=100000 --device-write-bps=\"/dev/mapper/centos-root:1mb\" \
+                        "docker run -d -t -m {5}m --cpu-period=100000  \
                         --cpu-quota={6}0000 --name=\"{4}\" catone/inspire:{0} rtty -I \"{1}\" \
                         -h {2} -p {3} -a -v -s".format(
                             OS_SWITCH[os_info], 
@@ -256,7 +258,7 @@ def getOS():
                     )
                 else:
                     subprocess.check_output(
-                        "docker run -d -p {7}:{8} -t -m {5}m  --device-write-bps=\"/dev/mapper/centos-root:1mb\" \
+                        "docker run -d -p {7}:{8} -t -m {5}m  \
                         --cpu-quota={6}0000 --name=\"{4}\" catone/inspire:{0} rtty -I \"{1}\" \
                         -h {2} -p {3} -a -v -s".format(
                             OS_SWITCH[os_info], 
