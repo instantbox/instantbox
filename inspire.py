@@ -21,6 +21,7 @@ SERVERURL = os.environ.get('SERVERURL')
 if SERVERURL == None:
     SERVERURL = '127.0.0.1'
 
+
 OS_SWITCH = {
     "10000":"ubuntu12_04",
     "10001":"ubuntu14_04",
@@ -113,6 +114,7 @@ OS_LIST = [{
 
 ]
 
+
 def randPort():
     rand_port = random.randint(1, 65536)
     if (6000 <= rand_port <= 7000) or (rand_port == 22):
@@ -129,6 +131,7 @@ def randPort():
 def genString():
     salt = ''.join(random.sample(string.ascii_letters + string.digits, 16))
     return salt
+
 
 @app.route('/v2/superinspire/getOSList')
 def returnList():
