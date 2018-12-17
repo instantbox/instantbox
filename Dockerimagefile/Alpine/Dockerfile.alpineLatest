@@ -1,0 +1,12 @@
+FROM alpine:latest
+MAINTAINER Cat.1 docker@gansi.me
+
+ENV FLASH_DATA=2018_12_17
+
+COPY ./ttyd_linux.x86_64 / 
+
+RUN chmod +x ./ttyd_linux.x86_64 && cp ./ttyd_linux.x86_64 /usr/bin/
+
+WORKDIR /
+
+CMD ttyd_linux.x86_64 -p 1588 sh -x

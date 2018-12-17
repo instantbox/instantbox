@@ -1,0 +1,15 @@
+FROM centos:latest
+MAINTAINER Cat.1 zhuyuefeng0@gmail.com
+
+ENV FLASH_DATA=2018_12_17
+
+
+RUN mkdir -p /webShell/ && cd /webShell
+
+COPY ./ttyd_linux.x86_64 / 
+
+RUN chmod +x ./ttyd_linux.x86_64 && cp ./ttyd_linux.x86_64 /usr/bin/
+
+WORKDIR /
+
+CMD ttyd_linux.x86_64 -p 1588 bash -x

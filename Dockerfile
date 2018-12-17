@@ -1,13 +1,12 @@
 FROM ubuntu:16.04
 MAINTAINER Cat.1 docker@gansi.me
 
-RUN apt-get update -qq
-RUN apt-get install -y python3-pip wget
-RUN apt-get install -y python3 python-dev python3-dev \
-     build-essential libssl-dev libffi-dev \
-     libxml2-dev libxslt1-dev zlib1g-dev
+RUN apt-get update -qq && apt-get -y install python3-pip python3 python-dev\
+     build-essential libssl-dev libffi-dev python3-dev libxml2-dev libxslt1-dev \
+     zlib1g-dev locales libltdl7
+     
 
-RUN apt-get install -y locales libltdl7 && locale-gen zh_CN.UTF-8 && rm -rf /var/lib/apt/lists/*
+RUN locale-gen zh_CN.UTF-8 && rm -rf /var/lib/apt/lists/*
 
 ENV LC_ALL=zh_CN.UTF-8
 ENV PYTHONIOENCODING=utf-8
@@ -18,12 +17,10 @@ WORKDIR /superinspire
 ADD requirement.txt /superinspire/
 RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r /superinspire/requirement.txt
 
-RUN wget https://github.com/zhaojh329/rttys/files/2471995/rttys-linux-amd64.tar.gz && tar -xvf rttys-linux-amd64.tar.gz && rm rttys-linux-amd64.tar.gz
-
 
 ADD inspire.py /superinspire/
 
-CMD nohup ./rttys-linux-amd64/rttys -key ./rttys-linux-amd64/rttys.key -cert ./rttys-linux-amd64/rttys.crt -port $RTTYS_PORT_ENV & python3 ./inspire.py
+CMD python3 ./inspire.py
 
 
 

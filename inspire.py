@@ -18,24 +18,25 @@ CORS(app, resources=r'/*')
 
 
 SERVERURL = os.environ.get('SERVERURL')
-SERVERPORT = os.environ.get('SERVERPORT')
+if SERVERURL == None:
+    SERVERURL = '127.0.0.1'
 
 OS_SWITCH = {
-    "10000":"Ubuntu_12.04",
-    "10001":"Ubuntu_14.04",
-    "10002":"Ubuntu_16.04",
-    "10003":"Ubuntu_18.04",
-    "10004":"Ubuntu_latest",
-    "20000":"CentOS_6.10",
-    "20001":"CentOS_7",
-    "20002":"CentOS_latest",
+    "10000":"ubuntu12_04",
+    "10001":"ubuntu14_04",
+    "10002":"ubuntu16_04",
+    "10003":"ubuntu18_04",
+    "10004":"ubuntuLatest",
+    "20000":"centOS6_10",
+    "20001":"centOS7",
+    "20002":"centOSLatest",
     "30000":"2018.12.01",
-    "30001":"Arch_latest",
-    "40000":"Debian_9.6.0",
-    "40001":"Debian_latest",
-    "50000":"Fedora_28",
-    "50001":"Fedora_29",
-    "50002":"Fedora_latest",
+    "30001":"archLatest",
+    "40000":"debian9_6_0",
+    "40001":"debianLatest",
+    "50000":"fedora28",
+    "50001":"fedora29",
+    "50002":"fedoraLatest",
 }
 
 
@@ -113,7 +114,7 @@ OS_LIST = [{
 ]
 
 def randPort():
-    rand_port = random.randint(1025, 65536)
+    rand_port = random.randint(1, 65536)
     if (6000 <= rand_port <= 7000) or (rand_port == 22):
         randPort()
     else:
@@ -129,7 +130,7 @@ def genString():
     salt = ''.join(random.sample(string.ascii_letters + string.digits, 16))
     return salt
 
-@app.route('/v1/superspire/getOSList')
+@app.route('/v2/superinspire/getOSList')
 def returnList():
 
     response = Response(
@@ -146,12 +147,12 @@ def returnList():
     return response
 
 
-@app.route('/v1/superspire')
+@app.route('/v2/superinspire')
 def hello():
     return 'hello'
 
 
-@app.route('/v1/superspire/rmOS')
+@app.route('/v2/superinspire/rmOS')
 def rmOS():
     try:
         containerId = request.args.get("containerId")
@@ -198,9 +199,11 @@ def rmOS():
     return response
 
 
-@app.route('/v1/superspire/getOS')
+@app.route('/v2/superinspire/getOS')
 def getOS():
-    shareUrl = 'https://'+SERVERURL+":"+SERVERPORT+"/#/?id={0}&username=root&password=123456"
+
+    shareUrl = "http://{0}:{1}"
+    openPort = ''
 
     try:
         os_info = request.args.get("os")
@@ -239,17 +242,18 @@ def getOS():
                 os_timeout = 3600*24+time.time()
 
             rand_string = genString()
+            webShellPort = randPort()
             try:
                 # 存redis
                 if os_port == None:
                     subprocess.check_output(
                         "docker run -d -t -m {5}m --cpu-period=100000  \
-                        --cpu-quota={6}0000 --name=\"{4}\" catone/inspire:{0} rtty -I \"{1}\" \
-                        -h {2} -p {3} -a -v -s".format(
+                        --cpu-quota={6}0000 -p {3}:{3} --name=\"{4}\" catone/inspire:{0} ttyd_linux.x86_64 \
+                        -p {3} bash -x".format(
                             OS_SWITCH[os_info], 
                             rand_string, 
                             SERVERURL, 
-                            SERVERPORT, 
+                            webShellPort, 
                             rand_string,
                             os_mem,
                             os_cpu,
@@ -257,14 +261,16 @@ def getOS():
                         shell=True
                     )
                 else:
+                    openPort = randPort()
+
                     subprocess.check_output(
-                        "docker run -d -p {7}:{8} -t -m {5}m  \
-                        --cpu-quota={6}0000 --name=\"{4}\" catone/inspire:{0} rtty -I \"{1}\" \
-                        -h {2} -p {3} -a -v -s".format(
+                        "docker run -d -t -m {5}m --cpu-period=100000  \
+                        --cpu-quota={6}0000 -p {3}:{3} -p {7}:{8} --name=\"{4}\" catone/inspire:{0} ttyd_linux.x86_64 \
+                        -p {3} bash -x".format(
                             OS_SWITCH[os_info], 
                             rand_string, 
                             SERVERURL, 
-                            SERVERPORT, 
+                            webShellPort, 
                             rand_string,
                             os_mem,
                             int(os_cpu),
@@ -288,7 +294,8 @@ def getOS():
                 response = Response(
                     json.dumps({
                         "message":"SUCCESS", 
-                        "shareUrl":shareUrl.format(rand_string), 
+                        "shareUrl":shareUrl.format(SERVERURL, webShellPort), 
+                        "openPort":openPort,
                         "statusCode":1,
                         "containerId":rand_string,                        
                         }

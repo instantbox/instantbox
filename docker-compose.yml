@@ -1,0 +1,37 @@
+
+
+version: '1'
+
+services:
+
+  inspire:
+    image: catone/inspire:server
+    container_name: inspire_flask
+    ports:
+      - 65501:65501
+    links:
+      - redis
+    environment:
+      SERVERURL: 118.126.93.123
+      SERVERPORT: 65501      
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock 
+      - /etc/sysconfig/docker:/etc/sysconfig/docker 
+      - /usr/bin/docker:/usr/bin/docker
+    command: python3 ./inspire.py
+
+
+  redis:
+    image: redis
+    container_name: inspire_redis
+
+
+  nginx:
+    image: nginx
+    links:
+      - inspire
+    ports:
+      - 80:80
+
+    container_name: inspire_nginx
+
