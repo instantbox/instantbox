@@ -1,14 +1,16 @@
 import re
-import string
-import redis
+import os
+import sys
+import json
 import time
 import random
-import sys
-import os
-import json
+import string
 import subprocess
 from flask_cors import CORS
+from API.redisCli import ConnectRedis
+from API.rmContainer import RmContainer
 from flask import render_template,redirect
+from API.createContainer import CreateContainer
 from flask import Flask,request,Response,jsonify
 
 
@@ -16,6 +18,9 @@ from flask import Flask,request,Response,jsonify
 app = Flask(__name__)
 CORS(app, resources=r'/*')
 
+redisCli = ConnectRedis()
+create_container_client = CreateContainer()
+rm_container_client = RmContainer()
 
 SERVERURL = os.environ.get('SERVERURL')
 if SERVERURL == None:
@@ -148,14 +153,14 @@ def returnList():
     response = Response(
         json.dumps(
             OS_LIST
-        ), 
+        ),
         mimetype = 'application/json'
     )
 
-    response.headers.add('Server','python flask')       
+    response.headers.add('Server','python flask')
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Methods'] = 'GET,POST'
-    response.headers['Access-Control-Allow-Headers'] = 'x-requested-with'            
+    response.headers['Access-Control-Allow-Headers'] = 'x-requested-with'
     return response
 
 
@@ -173,41 +178,55 @@ def rmOS():
     except:
         response = Response(
             json.dumps({
-                "message":"CONTAINERS_ID ERROR", 
+                "message":"Arguments ERROR", 
                 "statusCode":0
                 }
             ), 
             mimetype = 'application/json'
         )
     else:
-        # 先验一次redis
-        try:
-            subprocess.check_output("docker rm -f {0}".format(containerId), shell=True)
-        except:
-            response = Response(
-                json.dumps({
-                    "message":"RM docker containers error",
-                    "shareUrl":"", 
-                    "statusCode":0,
-                    }
-                ),
-                mimetype = 'application/json'
-            )
+        if redisCli.is_container(containerId):
+            try:
+                isSuccess = rm_container_client.is_rm_container(containerId)
+                if isSuccess != True:
+                    raise Exception
+
+            except Exception:
+                response = Response(
+                    json.dumps({
+                        "message":"RM docker containers ERROR",
+                        "shareUrl":"", 
+                        "statusCode":0,
+                        }
+                    ),
+                    mimetype = 'application/json'
+                )
+            else:
+                response = Response(
+                    json.dumps({
+                        "message":"SUCCESS", 
+                        "statusCode":1,
+                        "containerId":containerId,
+                        }
+                    ), 
+                    mimetype = 'application/json'
+                )
         else:
             response = Response(
                 json.dumps({
-                    "message":"SUCCESS", 
-                    "statusCode":1,
-                    "containerId":containerId,                    
+                    "message":"docker containers not exist ERROR", 
+                    "statusCode":0,
+                    "containerId":containerId,
                     }
                 ), 
                 mimetype = 'application/json'
             )
 
-    response.headers.add('Server','python flask')       
+
+    response.headers.add('Server','python flask')
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Methods'] = 'GET,POST'
-    response.headers['Access-Control-Allow-Headers'] = 'x-requested-with'            
+    response.headers['Access-Control-Allow-Headers'] = 'x-requested-with'
     return response
 
 
@@ -222,7 +241,7 @@ def getOS():
     except:
         response = Response(
             json.dumps({
-                "message":"OS_INFO ERROR", 
+                "message":"OS Arguments ERROR", 
                 "statusCode":0
                 }
             ), 
@@ -238,7 +257,7 @@ def getOS():
             if os_info not in OS_SWITCH:
                 response = Response(
                     json.dumps({
-                        "message":"OS_SWITCH ERROR", 
+                        "message":"The image is not supported at this time ERROR", 
                         "statusCode":0
                         }
                     ), 
@@ -256,46 +275,33 @@ def getOS():
             rand_string = genString()
             webShellPort = randPort()
             try:
-                # 存redis
                 if os_port == None:
-                    subprocess.check_output(
-                        "docker run -d -t -m {5}m --cpu-period=100000  \
-                        --cpu-quota={6}0000 -p {3}:{3} --name=\"{4}\" catone/inspire:{0} ttyd_linux.x86_64 \
-                        -p {3} bash -x".format(
-                            OS_SWITCH[os_info], 
-                            rand_string, 
-                            SERVERURL, 
-                            webShellPort, 
-                            rand_string,
-                            os_mem,
-                            os_cpu,
-                            ),
-                        shell=True
+                isSuccess = create_container_client.is_create_container(
+                    mem=os_mem,
+                    cpu=os_cpu,
+                    web_shell_port=webShellPort,
+                    container_name=rand_string,
+                    os_name=OS_SWITCH[os_info],
                     )
+
                 else:
                     openPort = randPort()
+                    isSuccess = create_container_client.is_create_container(
+                        mem=os_mem,
+                        cpu=os_cpu,
+                        web_shell_port=webShellPort,
+                        container_name=rand_string,
+                        os_name=OS_SWITCH[os_info],
+                        open_port=os_port,
+                        rand_port=openPort
+                        )
 
-                    subprocess.check_output(
-                        "docker run -d -t -m {5}m --cpu-period=100000  \
-                        --cpu-quota={6}0000 -p {3}:{3} -p {7}:{8} --name=\"{4}\" catone/inspire:{0} ttyd_linux.x86_64 \
-                        -p {3} bash -x".format(
-                            OS_SWITCH[os_info], 
-                            rand_string, 
-                            SERVERURL, 
-                            webShellPort, 
-                            rand_string,
-                            os_mem,
-                            int(os_cpu),
-                            randPort(),
-                            os_port,
-                            ),
-                        shell=True
-                    )
-
-            except:
+            if isSuccess != True:
+                raise Exception
+            except Exception:
                 response = Response(
                     json.dumps({
-                        "message":"RUN docker containers error", 
+                        "message":"RUN docker containers ERROR", 
                         "shareUrl":"", 
                         "statusCode":0,
                         }
@@ -303,22 +309,24 @@ def getOS():
                     mimetype = 'application/json'
                 )
             else:
+                redisCli.set_container()
+
                 response = Response(
                     json.dumps({
                         "message":"SUCCESS", 
                         "shareUrl":shareUrl.format(SERVERURL, webShellPort), 
                         "openPort":openPort,
                         "statusCode":1,
-                        "containerId":rand_string,                        
+                        "containerId":rand_string,
                         }
                     ), 
                     mimetype = 'application/json'
                 )
 
-    response.headers.add('Server','python flask')       
+    response.headers.add('Server','python flask')
     response.headers['Access-Control-Allow-Origin'] = '*'
     response.headers['Access-Control-Allow-Methods'] = 'GET,POST'
-    response.headers['Access-Control-Allow-Headers'] = 'x-requested-with'            
+    response.headers['Access-Control-Allow-Headers'] = 'x-requested-with'
     return response
 
 

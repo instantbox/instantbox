@@ -16,13 +16,11 @@ services:
       SERVERPORT: 65501      
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock 
-      - /etc/sysconfig/docker:/etc/sysconfig/docker 
-      - /usr/bin/docker:/usr/bin/docker
     command: python3 ./inspire.py
 
 
   redis:
-    image: redis
+    image: redisInstance
     container_name: inspire_redis
 
 

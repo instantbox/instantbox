@@ -6,7 +6,7 @@ RUN apt-get update -qq && apt-get -y install python3-pip python3 python-dev\
      zlib1g-dev locales libltdl7 lsof
      
 
-RUN locale-gen zh_CN.UTF-8 && rm -rf /var/lib/apt/lists/*
+RUN locale-gen zh_CN.UTF-8 && rm -rf /var/lib/apt/lists/* && apt-get clean
 
 ENV LC_ALL=zh_CN.UTF-8
 ENV PYTHONIOENCODING=utf-8
@@ -21,6 +21,3 @@ RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r /superinspire/re
 ADD inspire.py /superinspire/
 
 CMD python3 ./inspire.py
-
-
-
