@@ -12,7 +12,7 @@ services:
     links:
       - redis
     environment:
-      SERVERURL: 118.126.93.123
+      SERVERURL: 115.238.228.39
       SERVERPORT: 65501      
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock 
@@ -31,7 +31,7 @@ services:
     links:
       - inspire
     ports:
-      - 80:80
+      - 9010:80
 
     container_name: inspire_nginx
 

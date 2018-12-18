@@ -38,6 +38,7 @@ OS_SWITCH = {
     "50000":"fedora28",
     "50001":"fedora29",
     "50002":"fedoraLatest",
+    "60000":"alpineLatest"
 }
 
 
@@ -109,6 +110,14 @@ OS_LIST = [{
         }, {
         'label':"latest",
         'osCode':"50002"
+        },
+    ]}, {
+
+    "label": "Alpine",
+    "value": "Alpine",
+    "subList":[{
+        'label':"latest",
+        'osCode':"60000"
         },
     ]},
 
