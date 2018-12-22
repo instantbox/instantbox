@@ -15,6 +15,7 @@ services:
 
 script:
   - docker build -t="catone/inspire:pre_build" -f ./Dockerfile .
+  - docker build -t="catone/inspire:nginx" -f ./nginxDocker/Dockerfile .
   - docker run -d -P --name="inspire" catone/inspire:pre_build
   - docker rm -f inspire || true
   
@@ -26,4 +27,5 @@ after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker tag catone/inspire:pre_build catone/inspire:server
   - docker push catone/inspire:server
+  - docker push catone/inspire:nginx
 
