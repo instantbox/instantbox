@@ -1,6 +1,6 @@
 
 
-version: '1'
+version: '3'
 
 services:
 
@@ -19,7 +19,7 @@ services:
 
 
   redis:
-    image: redisInstance
+    image: redis:latest
     container_name: inspire_redis
 
 
