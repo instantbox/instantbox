@@ -18,6 +18,7 @@ from flask import Flask,request,Response,jsonify
 app = Flask(__name__)
 CORS(app, resources=r'/*')
 
+
 redisCli = ConnectRedis()
 create_container_client = CreateContainer()
 rm_container_client = RmContainer()
