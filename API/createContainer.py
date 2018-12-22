@@ -17,10 +17,10 @@ class CreateContainer(object):
             shell = "sh"
 
         if open_port == None:
-            port_dict = {web_shell_port+'/tcp':web_shell_port}
+            port_dict = {str(web_shell_port)+'/tcp':str(web_shell_port)}
         else:
-            port_dict = {web_shell_port+'/tcp':web_shell_port,
-                rand_port+'/tcp':open_port
+            port_dict = {str(web_shell_port)+'/tcp':str(web_shell_port),
+                str(rand_port)+'/tcp':str(open_port)
             }
 
         try:
@@ -28,12 +28,12 @@ class CreateContainer(object):
             self.client.containers.run(
                 image="catone/inspire:%s"%os_name,
                 command="ttyd_linux.x86_64 -p %s %s -x"%(web_shell_port, shell),
-                cpu_period="100000",
-                cpu_quota="%s0000"%cpu,
+                cpu_period=100000,
+                cpu_quota=int("%s0000"%cpu),
                 mem_limit="%sm"%mem,
                 name=container_name,
                 ports=port_dict,
-                restart_policy={"Name": "always"}
+                restart_policy={"Name": "always"},
                 tty=True,
                 detach=True
                 )
@@ -46,4 +46,5 @@ class CreateContainer(object):
 
 if __name__ == '__main__':
     test = CreateContainer()
-    # test.is_create_container()
+    test.is_create_container("512", 1, 32233, "kldasf", "ubuntu16_04")
+

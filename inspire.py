@@ -276,13 +276,13 @@ def getOS():
             webShellPort = randPort()
             try:
                 if os_port == None:
-                isSuccess = create_container_client.is_create_container(
-                    mem=os_mem,
-                    cpu=os_cpu,
-                    web_shell_port=webShellPort,
-                    container_name=rand_string,
-                    os_name=OS_SWITCH[os_info],
-                    )
+                    isSuccess = create_container_client.is_create_container(
+                        mem=os_mem,
+                        cpu=os_cpu,
+                        web_shell_port=webShellPort,
+                        container_name=rand_string,
+                        os_name=OS_SWITCH[os_info],
+                        )
 
                 else:
                     openPort = randPort()
@@ -296,8 +296,8 @@ def getOS():
                         rand_port=openPort
                         )
 
-            if isSuccess != True:
-                raise Exception
+                if isSuccess != True:
+                    raise Exception
             except Exception:
                 response = Response(
                     json.dumps({
@@ -309,7 +309,7 @@ def getOS():
                     mimetype = 'application/json'
                 )
             else:
-                redisCli.set_container()
+                redisCli.set_container(rand_string)
 
                 response = Response(
                     json.dumps({

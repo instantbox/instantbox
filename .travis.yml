@@ -16,7 +16,7 @@ services:
 script:
   - docker build -t="catone/inspire:pre_build" -f ./Dockerfile .
   - docker run -d -P --name="inspire" catone/inspire:pre_build
-  - docker rm -f free_file_test || true
+  - docker rm -f inspire || true
   
 
 notifications:
@@ -24,5 +24,5 @@ notifications:
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker tag catone/inspire:pre_build catone/inspire:latest
+  - docker tag catone/inspire:pre_build catone/inspire:server
   - docker push catone/inspire:latest

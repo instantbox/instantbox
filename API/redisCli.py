@@ -7,7 +7,7 @@ class ConnectRedis(object):
 
     def __init__(self):
 
-        redisPool = redis.ConnectionPool(host="127.0.0.1", port=6379, db=0)
+        redisPool = redis.ConnectionPool(host="redis", port=6379, db=0)
         self.redisCli = redis.StrictRedis(connection_pool=redisPool)
 
 
@@ -40,15 +40,16 @@ class ConnectRedis(object):
 
     def set_container(self, containerId :str) -> bool:
 
-        result = self.redisCli.get(containerId)
+        result = self.redisCli.set(containerId, containerId)
         if result != None:
             return True
         else:
             return False
 
 
+if __name__ == '__main__':
 
-test = ConnectRedis()
-test.set_value("name", "Yuefeng Zhu")
-print(test.get_value("name"))
+    test = ConnectRedis()
+    test.set_value("name", "Yuefeng Zhu")
+    print(test.get_value("name"))
 

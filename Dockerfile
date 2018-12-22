@@ -18,6 +18,6 @@ ADD requirement.txt /superinspire/
 RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r /superinspire/requirement.txt
 
 
-ADD inspire.py /superinspire/
+ADD ./ /superinspire/
 
 CMD python3 ./inspire.py
