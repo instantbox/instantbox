@@ -1,5 +1,4 @@
 
-
 version: '3'
 
 services:
@@ -12,7 +11,7 @@ services:
       - redis
     environment:
       SERVERURL: 115.238.228.39
-      SERVERPORT: 65501
+
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock 
     command: python3 ./inspire.py
@@ -31,4 +30,3 @@ services:
       - 9010:80
 
     container_name: inspire_nginx
-
