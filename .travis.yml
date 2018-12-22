@@ -15,7 +15,7 @@ services:
 
 script:
   - docker build -t="catone/inspire:pre_build" -f ./Dockerfile .
-  - docker build -t="catone/inspire:nginx" -f ./nginxDocker/Dockerfile .
+  - docker build -t="catone/inspire:nginx" -f nginxDocker/Dockerfile .
   - docker run -d -P --name="inspire" catone/inspire:pre_build
   - docker rm -f inspire || true
   
