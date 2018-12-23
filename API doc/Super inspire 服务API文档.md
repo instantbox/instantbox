@@ -1,14 +1,22 @@
 # Super inspire 服务API文档
 
-文档版本：0.0.2
+文档版本：0.0.3
 
 修订历史：
 
 - 0.0.1：初稿 2018/12/11
+
 - 0.0.2:   修改状态码 2018/12/11
 
+- 0.0.3:   修改了webShell生成方式, 改进API, 支持Ubuntu/CentOS/Alpine的大部分镜像 2018/12/18
 
+  主要改进如下:
 
+  ​	1. API从<font color=#DC143C> /v1/superspire/  </font> ->   <font color=#DC143C>/v2/superinspire/ </font>
+
+  ​	2. 支持Ubuntu 14.04 ~ 18.04, CentOS6.10, CentOS7, Alpine LATEST
+
+  ​	3. 支持nginx频率控制, 默认返回503错误
 
 
 ## API请求方式说明
@@ -23,13 +31,13 @@
 格式：
 
 ```
-http://115.238.228.39:65500/v1/superspire/{relative_path}?{query_string}
+http://115.238.228.39:65500/v2/superinspire/{relative_path}?{query_string}
 ```
 
 举例：
 
 ```
-http://115.238.228.39:65500/v1/superspire/getOS?os=10000
+http://115.238.228.39:65500/v2/superinspire/getOS?os=10000
 ```
 
 ### 参数说明
@@ -43,7 +51,7 @@ http://115.238.228.39:65500/v1/superspire/getOS?os=10000
 
 | 请求方式  | GET                                                          | POST                                                         |
 | --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| URL       | `http://api.example.com/superinspire/v1/{relative_path}?{query_string}` | `http://api.example.com/superinspire/v1/{relative_path}?{query_string}` |
+| URL       | `http://api.example.com/v1/superinspire/{relative_path}?{query_string}` | `http://api.example.com/superinspire/v1/{relative_path}?{query_string}` |
 | 请求参数  | 全部携带在 HTTP 请求头部的 query_string 中。                 | 既可携带在 query_string 中，也可携带在 HTTP Body 中。  携带在 query_string 中的参数的值，必须进行 UrlEncode 编码；  携带在 HTTP Body 中的参数，则不需要进行 UrlEncode 编码。 |
 | HTTP BODY | 不携带HTTP Body                                              | multipart/form-data                                          |
 
@@ -162,7 +170,15 @@ GET /v1/superspire/getOSList
         'label':"latest",
         'osCode':"50002"
         },
-    ]}, 
+    ]}, {
+
+    "label": "Alpine",
+    "value": "Alpine",
+    "subList":[{
+        'label':"latest",
+        'osCode':"60000"
+        },
+    ]},
 
 ]
 ```
@@ -185,12 +201,13 @@ GET /getOS
 
 #### 返回
 
-| 参数名      | 类型    | 描述                     | 必选 |
-| ----------- | ------- | ------------------------ | ---- |
-| statusCode  | integer | 状态码(1, 302, 403, 404) | 是   |
-| message     | string  | 状态解读                 | 是   |
-| shareUrl    | string  | 容器Url地址              | 否   |
-| containerId | string  | 容器标识码               | 否   |
+| 参数名      | 类型    | 描述                                           | 必选 |
+| ----------- | ------- | ---------------------------------------------- | ---- |
+| statusCode  | integer | 状态码(1, 302, 403, 404)                       | 是   |
+| message     | string  | 状态解读                                       | 是   |
+| shareUrl    | string  | 容器Url地址                                    | 否   |
+| containerId | string  | 容器标识码                                     | 否   |
+| openPort    | string  | 若要测试带端口的应用, 授予临时端口(默认不提供) | 否   |
 
 
 
