@@ -9,7 +9,6 @@ services:
 
     links:
       - redis
-    environment:
 
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
