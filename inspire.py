@@ -23,9 +23,8 @@ redisCli = ConnectRedis()
 create_container_client = CreateContainer()
 rm_container_client = RmContainer()
 
-SERVERURL = os.environ.get('SERVERURL')
-if SERVERURL == None:
-    SERVERURL = '127.0.0.1'
+
+SERVERURL = os.popen('curl ip.sb').readlines()[0].split('\n')[0]
 
 
 OS_SWITCH = {
@@ -179,10 +178,10 @@ def rmOS():
     except:
         response = Response(
             json.dumps({
-                "message":"Arguments ERROR", 
+                "message":"Arguments ERROR",
                 "statusCode":0
                 }
-            ), 
+            ),
             mimetype = 'application/json'
         )
     else:
@@ -196,7 +195,7 @@ def rmOS():
                 response = Response(
                     json.dumps({
                         "message":"RM docker containers ERROR",
-                        "shareUrl":"", 
+                        "shareUrl":"",
                         "statusCode":0,
                         }
                     ),
@@ -205,21 +204,21 @@ def rmOS():
             else:
                 response = Response(
                     json.dumps({
-                        "message":"SUCCESS", 
+                        "message":"SUCCESS",
                         "statusCode":1,
                         "containerId":containerId,
                         }
-                    ), 
+                    ),
                     mimetype = 'application/json'
                 )
         else:
             response = Response(
                 json.dumps({
-                    "message":"docker containers not exist ERROR", 
+                    "message":"docker containers not exist ERROR",
                     "statusCode":0,
                     "containerId":containerId,
                     }
-                ), 
+                ),
                 mimetype = 'application/json'
             )
 
@@ -242,10 +241,10 @@ def getOS():
     except:
         response = Response(
             json.dumps({
-                "message":"OS Arguments ERROR", 
+                "message":"OS Arguments ERROR",
                 "statusCode":0
                 }
-            ), 
+            ),
             mimetype = 'application/json'
         )
     else:
@@ -258,10 +257,10 @@ def getOS():
             if os_info not in OS_SWITCH:
                 response = Response(
                     json.dumps({
-                        "message":"The image is not supported at this time ERROR", 
+                        "message":"The image is not supported at this time ERROR",
                         "statusCode":0
                         }
-                    ), 
+                    ),
                     mimetype = 'application/json'
                 )
         else:
@@ -302,8 +301,8 @@ def getOS():
             except Exception:
                 response = Response(
                     json.dumps({
-                        "message":"RUN docker containers ERROR", 
-                        "shareUrl":"", 
+                        "message":"RUN docker containers ERROR",
+                        "shareUrl":"",
                         "statusCode":0,
                         }
                     ),
@@ -314,13 +313,13 @@ def getOS():
 
                 response = Response(
                     json.dumps({
-                        "message":"SUCCESS", 
-                        "shareUrl":shareUrl.format(SERVERURL, webShellPort), 
+                        "message":"SUCCESS",
+                        "shareUrl":shareUrl.format(SERVERURL, webShellPort),
                         "openPort":openPort,
                         "statusCode":1,
                         "containerId":rand_string,
                         }
-                    ), 
+                    ),
                     mimetype = 'application/json'
                 )
 
