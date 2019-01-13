@@ -51,6 +51,7 @@ OS_SWITCH = {
 OS_LIST = [{
     "label": "Ubuntu",
     "value": "Ubuntu",
+    "logoUrl":"http://60.190.81.133:9010/icon/ubuntu.png",
     "subList":[{
         'label':"12.04",
         'osCode':"10000"
@@ -70,6 +71,7 @@ OS_LIST = [{
     ]}, {
     "label": "CentOS",
     "value": "CentOS",
+    "logoUrl":"http://60.190.81.133:9010/icon/cent-os.png",
     "subList":[{
         'label':"6.10",
         'osCode':"20000"
@@ -84,6 +86,7 @@ OS_LIST = [{
 
     "label": "Arch Linux",
     "value": "Arch Linux",
+    "logoUrl":"http://60.190.81.133:9010/icon/arch.png",
     "subList":[{
         'label':"2018.12.01",
         'osCode':"30000"
@@ -95,6 +98,7 @@ OS_LIST = [{
 
     "label": "Debian",
     "value": "Debian",
+    "logoUrl":"http://60.190.81.133:9010/icon/debian.png",
     "subList":[{
         'label':"9.6.0",
         'osCode':"40000"
@@ -106,6 +110,7 @@ OS_LIST = [{
 
     "label": "Fedora",
     "value": "Fedora",
+    "logoUrl":"http://60.190.81.133:9010/icon/fedora.png",
     "subList":[{
         'label':"28",
         'osCode':"50000"
@@ -120,6 +125,7 @@ OS_LIST = [{
 
     "label": "Alpine",
     "value": "Alpine",
+    "logoUrl":"http://60.190.81.133:9010/icon/alpine.png",
     "subList":[{
         'label':"latest",
         'osCode':"60000"
