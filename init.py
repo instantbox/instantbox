@@ -4,15 +4,11 @@ import subprocess
 def is_python_2():
     import sys
 
-    if sys.version_info < (3, 0):
-        return True
-
-    else:
-        return False
+    return sys.version_info < (3, 0):
 
 
 def init():
-    if is_python_2():
+    if is_python_2() == True:
         print 'Init inspire...'
         public_ip = raw_input("Please enter your public ip: ")
         public_port = raw_input("Please enter your public port(default 9010): ")
@@ -27,7 +23,7 @@ def init():
 def modify_yml(public_ip, public_port):
     with open("./docker-compose.yml", "r") as yaml_file:
 
-        yaml_obj = yaml.load(yaml_file.read())
+        yaml_obj = yaml.safe_load(yaml_file.read())
         yaml_obj["services"]["inspire"]["environment"]["SERVERURL"] = public_ip
         yaml_obj["services"]["nginx"]["ports"] = {int(public_port):80}
 
@@ -52,4 +48,3 @@ if __name__ == '__main__':
     public_ip, public_port = init()
     modify_yml(public_ip, public_port)
     call_init_docker_compose()
-
