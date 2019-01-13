@@ -1,7 +1,7 @@
 sudo: required
 
 language: python
-  
+
 python:
   - "3.6"
 
@@ -18,7 +18,7 @@ script:
   - docker build -t="catone/inspire:nginx" -f ./nginxDocker/Dockerfile ./nginxDocker/
   - docker run -d -P --name="inspire" catone/inspire:pre_build
   - docker rm -f inspire || true
-  
+
 
 notifications:
   email: true
@@ -28,4 +28,3 @@ after_success:
   - docker tag catone/inspire:pre_build catone/inspire:server
   - docker push catone/inspire:server
   - docker push catone/inspire:nginx
-

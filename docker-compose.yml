@@ -26,5 +26,10 @@ services:
       - inspire
     ports:
       - 9010:80
+      - 8888:81
+    volumes:
+      - type: bind
+        source: /var/super-inspire-frontend/build
+        target: /var/
 
     container_name: inspire_nginx

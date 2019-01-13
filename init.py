@@ -20,6 +20,9 @@ def init():
 
     return public_ip, public_port
 
+def cloneIndex():
+    subprocess.check_output("git clone https://github.com/super-inspire/super-inspire-frontend.git /var/", shell=True)
+
 def modify_yml(public_ip, public_port):
     with open("./docker-compose.yml", "r") as yaml_file:
 
