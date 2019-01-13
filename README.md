@@ -1,7 +1,10 @@
 
 
 <div align="center">
+
+
 # super-inspire-end 
+
 
 ### 在不到30s内就能得到一个干净的开箱即用的linux系统.
 
@@ -10,14 +13,13 @@ super-inspire是什么? 它能够让你仅通过浏览器的情况下, 在不到
 ![](./terminal.png)
 
 
-
 </div>
 
 ## 介绍
 
 
 
-**所以super-inspire可以用来干什么? **
+**所以super-inspire可以用来干什么?**
 
 
 
@@ -79,7 +81,7 @@ super-inspire是什么? 它能够让你仅通过浏览器的情况下, 在不到
 
 接着就可以使用super-inspire的本地版啦! 
 
-默认请访问localhost:8888/ 来进行测试.
+默认请访问localhost:8888 来进行测试.
 
 
 
