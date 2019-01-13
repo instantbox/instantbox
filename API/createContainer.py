@@ -27,7 +27,7 @@ class CreateContainer(object):
 
             self.client.containers.run(
                 image="catone/inspire:%s"%os_name,
-                command="ttyd_linux.x86_64 -p %s %s -x"%(web_shell_port, shell),
+                command="ttyd_linux.x86_64 -p %s %s"%(web_shell_port, shell),
                 cpu_period=100000,
                 cpu_quota=int("%s0000"%cpu),
                 mem_limit="%sm"%mem,
