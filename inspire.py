@@ -98,7 +98,7 @@ OS_LIST = [{
 
     "label": "Debian",
     "value": "Debian",
-    "logoUrl":"http://60.190.81.133:9010/icon/debian.png",
+    "logoUrl":"http://60.190.81.133:9010/icon/debain.png",
     "subList":[{
         'label':"9.6.0",
         'osCode':"40000"
