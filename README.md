@@ -47,7 +47,7 @@ super-inspire是什么? 它能够让你仅通过浏览器的情况下, 在不到
 
 ## web界面截图
 
-![](./demo.jpg)
+![](./demo/demo.jpg)
 
 
 
