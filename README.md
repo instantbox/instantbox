@@ -80,7 +80,7 @@ super-inspire是什么? 它能够让你仅通过浏览器的情况下, 在不到
 ```
 # git clone https://github.com/super-inspire/super-inspire-end.git
 # cd super-inspire-end/
-# sudo ./init.py
+# sudo ./init.sh
 # docker-compose up 
 
 ```
