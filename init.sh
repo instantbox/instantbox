@@ -76,12 +76,12 @@ if [[ detect_pkg_tool == 1 ]]; then
     exit 1
 fi
 
-check_cmd wget && {
+check_cmd wget || {
     $UPDATE && $INSTALL wget
 }
 
 
-check_cmd docker-compose && {
+check_cmd docker-compose || {
     wget https://github.com/docker/compose/releases/download/1.23.2/docker-compose-Linux-x86_64
     mv docker-compose-Linux-x86_64 docker-compose && chmod +x docker-compose
     mv docker-compose /usr/bin
