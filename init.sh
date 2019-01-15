@@ -4,9 +4,12 @@ check_cmd() {
     which $1 > /dev/null 2>&1
 }
 
-
+pretty_name=""
+UPDATE=""
+INSTALL=""
+REMOVE=""
 show_distribution() {
-    local pretty_name=""
+
 
     if [ -f /etc/os-release ];
     then
@@ -29,6 +32,7 @@ show_distribution() {
 
 
 detect_pkg_tool() {
+
     check_cmd apt && {
         UPDATE="apt update -q"
         INSTALL="apt install -y"
@@ -65,24 +69,19 @@ detect_pkg_tool() {
 }
 
 show_distribution
-
-if [[ $pretty_name == '' ]]; then
-    echo 'not support platform'
-    return 1
-fi
-
+detect_pkg_tool
 
 if [[ detect_pkg_tool == 1 ]]; then
     echo 'not support platform'
-    return 1
+    exit 1
 fi
 
-check_cmd wget && {
-    UPDATE && INSTALL wget
+check_cmd wget || {
+    $UPDATE && $INSTALL wget
 }
 
 
-check_cmd docker-compose && {
+check_cmd docker-compose || {
     wget https://github.com/docker/compose/releases/download/1.23.2/docker-compose-Linux-x86_64
     mv docker-compose-Linux-x86_64 docker-compose && chmod +x docker-compose
     mv docker-compose /usr/bin
