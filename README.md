@@ -76,13 +76,11 @@ super-inspire是什么? 它能够让你仅通过浏览器的情况下, 在不到
 
 
 1. 带有docker的linux系统, 推荐使用Ubuntu:16.04
-2. docker-compose, git指令支持
-3. python2.7或python3+
 
 ```
 # git clone https://github.com/super-inspire/super-inspire-end.git
 # cd super-inspire-end/
-# python init.py
+# sudo ./init.sh
 # docker-compose up 
 
 ```
