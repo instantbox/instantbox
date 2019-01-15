@@ -68,6 +68,14 @@ detect_pkg_tool() {
     return 1
 }
 
+clone_html(){
+    git clone https://github.com/super-inspire/super-inspire-frontend.git /var/super-inspire-frontend
+    mv /var/super-inspire-frontend/build /var/build
+    rm -rf /var/super-inspire-frontend
+}
+
+
+
 show_distribution
 detect_pkg_tool
 
@@ -76,17 +84,20 @@ if [[ detect_pkg_tool == 1 ]]; then
     exit 1
 fi
 
+check_cmd git || {
+    $UPDATE && $INSTALL git
+}
+
 check_cmd wget || {
     $UPDATE && $INSTALL wget
 }
 
+clone_html
 
 check_cmd docker-compose || {
     wget https://github.com/docker/compose/releases/download/1.23.2/docker-compose-Linux-x86_64
     mv docker-compose-Linux-x86_64 docker-compose && chmod +x docker-compose
     mv docker-compose /usr/bin
 }
-
-
 
 
