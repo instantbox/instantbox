@@ -1,108 +1,81 @@
-
-
 <div align="center">
 
+# super - inspire - end
 
-# super-inspire-end 
+Englist | [中文](./docs/README-zh.md)
 
+### Get a clean, out of the box, temporary Linux system in under 30s.
 
-### 在不到30s内得到一个干净的开箱即用的临时linux系统.
-
-super-inspire是什么? 它能够让你仅通过浏览器的情况下, 在不到30s的时间内, 就可以使用web来操作一个开箱即用的linux系统, 当然这里的"系统"是通过docker实现的, 所以也不能直接认为就是如同KVM般隔离更严格的虚拟化系统.
+What's a super-inspire?It allows you to use the web to operate an out-of-the-box Linux system in less than 30 seconds using only a browser. Of course, the "system" here is implemented with docker, so it cannot be considered as a more isolated virtualization system like KVM.
 
 ![](./terminal.png)
 
-
 </div>
 
-## 当前状况和接受赞助态度
+## Current status and acceptance of sponsorship
 
-目前服务器资源都是我自费提供的, 学生党压力非常大...
-为了给大家提供更好的体验, 我们接受个人/公司对于服务器资源(!!急需!!)和宣传帮助上的赞助, 但是不接受任何资金上的赞助~
-如果super-inspire有帮助到你, 并且能够有条件和兴趣提供赞助, 非常希望您能与我取得联系, 请发送邮件到zhuyuefeng0@gmail.com, 感激不尽.
+Currently, the server resources are all provided by myself at my own expense.
+In order to provide a better experience for everyone, we accept personal/corporate server resources (!!Urgent need!!!!!) and promotional sponsorship, but do not accept any financial support
+If super-inspire can help you and provide sponsorship with conditions and interests, I really hope you can get in touch with me. Please send me an email to zhuyuefeng0@gmail.com. Thank you very much.
 
-* 国内启动的临时服务器重新恢复, 但是性能仍然赶不上墙外的临时服务器, 请求地址 http://60.190.81.133:8888
-* 墙外新启动的临时测试服务器性能较好, 请求地址 
-  * http://34.80.61.20:8888
-  * http://35.220.241.175:8888
+- start domestic temporary server has resumed, but still behind the wall of temporary server performance, request address is http://60.190.81.133:8888
+- the newly started temporary test server outside the wall has good performance and requests the address
+- http://34.80.61.20:8888
+- http://35.220.241.175:8888
 
-在可以翻墙的情况下优先推荐使用国外临时测试服务器进行尝试
+In the case of over the wall, it is preferred to try using a foreign temporary test server
 
-## 介绍
+# # Introduction
 
+- _So what can a super-inspire do?_ \*
 
+1. When you need a clean Linux environment for your presentation, you can try to use it to give a presentation to the audience
+2. When the school teaching /LUG activity needs everyone to carry out Linux lab together, you can let students who can't install Linux temporarily experience the charm of Linux
+3. When you have an inspiration and want to try it in a clean environment, why not use a super-inspire out of the box?
+4. When I'm outside and I don't have a device , the super-inspire allows me to manage servers on any device.
+5. See a project on GitHub that you're very interested in trying, but was put off by the fact that it's running on Linux?Super-inspire allows you to get a clean environment in 30s, and you can even open a port for testing programs that need ports (for instance,Develop port 80 for testing).
+6. Super-inspire due to use docker as its support, so we use cgroups to manage performance. If you want to test whether one of your apps can run under a certain performance, it is a good choice to use super-inspire
 
-**所以super-inspire可以用来干什么?**
+More useful things of super-inspire are you thinking about
 
+In addition, we are planning to develop persistence containers so that some user containers can be destroyed without closing the web page, and they can still be used for a short period of time (Containers that do not support external development).
 
+---
 
-1. 当你在演讲时, 临时需要一个干净的linux环境, 你就可以尝试使用它为观众做演示
-
-2. 当学校教学/LUG 活动需要大家一起进行linux实验室, 你可以让暂时无法安装linux的同学体验到linux的魅力
-
-3. 当你有了一个灵感, 想要在干净的环境下尝试, 为什么不使用开箱即用的super-inspire呢?
-
-4. 当我在外边, 却没有携带设备时, super-inspire甚至可以让我在任何一台设备上对服务器进行管理(跳板机)
-
-5. 看到GitHub上某个非常感兴趣的项目想要尝试, 却因为该项目运行在linux而望而却步? super-inspire可以让你在30s中获得一个干净的环境, 你甚至可以开放一个端口用于测试需要使用端口的程序(例如开放80端口进行测试nginx)
-
-6. super-inspire由于使用docker作为支持, 所以我们使用了cgroups来对性能进行管理, 如果你想测试的你的某个应用在某个性能下是否能够运行, 使用super-inspire是一个非常好的选择
-
-
-
-   super-inspire更多的用处由你来创想.
-
-   此外我们正计划开发持久性容器, 让部分用户容器不再关掉网页就被销毁, 在一小段时间内仍然可以持续使用(不支持对外开放端口的容器)
-
-
-
---------------------------
-
-## web界面截图
+## Screenshot of the web interface
 
 ![](./demo/demo.jpg)
 
+## QuickStart/quickStart
 
+To access the temporary server address, you can choose a favorite system here, and then the system will automatically create the system's container, and automatically open a new web page into the web shell interaction.
 
-## quickStart/快速开始
+- currently support Ubuntu14.04, 16.04, 18.04;CentOS6.10;CentOS7;Alpine Latest.
+- please note that pop-up Windows are allowed.
 
-访问临时服务器地址, 你可以在这里选择一个喜欢的系统, 然后系统将自动创建该系统的容器, 并自动打开新的网页进入web shell交互.
+## How to deploy super-inspire?/ how dispose?
 
-* 目前支持Ubuntu14.04, 16.04, 18.04; CentOS6.10; CentOS7; Alpine Latest.
+If you think the experience provided by the official server is too slow, welcome to deploy one yourself. It's very easy to deploy a super-inspire, and you need to have the following environment:
 
-* 请注意允许弹出窗口.
-
-
-
-
-## how to deploy super-inspire?/如何部署?
-
-如果你认为官方的服务器提供的体验过慢的话, 欢迎自行部署一个~, 部署super-inspire非常简单, 你需要拥有以下环境:
-
-
-
-1. 带有docker的linux系统, 推荐使用Ubuntu:16.04
+1. Linux system with docker, Ubuntu:16.04 is recommended
 
 ```
+
 # git clone https://github.com/super-inspire/super-inspire-end.git
-# cd super-inspire-end/
-# sudo ./init.sh
-# docker-compose up 
+
+# cd super - inspire - end /
+
+# sudo. / init. Sh
+
+# docker - compose up
 
 ```
 
-接着就可以使用super-inspire的本地版啦! 
+Now you can use the local inspire edition! 
+By default, please visit localhost:8888 to test.
 
-默认请访问localhost:8888 来进行测试.
+## the questions?/ in doubt?
 
-
-
-# questions?/有疑问?
-
-
-
-如果你有任何疑问, 请提交issue, 我们会很快检查并回复.
-
-非常感谢tsl0922大佬的**ttyd**项目, super-inspire借助它才得以完成webshell部分的组件.
-
-祝你通过super-inspire更加方便的接触linux和开源, 这是我们最大的梦想.
+If you have any questions, please submit the issue, we will check and reply soon.
+Thanks a lot to the **ttyd** project of tsl0922 boss. It was with it that super-inspire was able to complete the components of webshell.
+I wish you greater access to Linux and open source through the super-inspire, which is our biggest dream.
