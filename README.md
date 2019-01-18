@@ -2,7 +2,7 @@
 
 # super - inspire - end
 
-Englist | [中文](./docs/README-zh.md)
+English | [中文](./docs/README-zh.md)
 
 ### Get a clean, out of the box, temporary Linux system in under 30s.
 
@@ -27,7 +27,7 @@ In the case of over the wall, it is preferred to try using a foreign temporary t
 
 # # Introduction
 
-- _So what can a super-inspire do?_ \*
+** _So what can a super-inspire do?_ **
 
 1. When you need a clean Linux environment for your presentation, you can try to use it to give a presentation to the audience
 2. When the school teaching /LUG activity needs everyone to carry out Linux lab together, you can let students who can't install Linux temporarily experience the charm of Linux
@@ -74,7 +74,7 @@ If you think the experience provided by the official server is too slow, welcome
 Now you can use the local inspire edition! 
 By default, please visit localhost:8888 to test.
 
-## the questions?/ in doubt?
+## the questions?
 
 If you have any questions, please submit the issue, we will check and reply soon.
 Thanks a lot to the **ttyd** project of tsl0922 boss. It was with it that super-inspire was able to complete the components of webshell.
