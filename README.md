@@ -1,6 +1,6 @@
 <div align="center">
 
-# super - inspire - end
+# super - inspire
 
 English | [中文](./docs/README-zh.md)
 
@@ -30,10 +30,15 @@ In the case of over the GFW(Great Firewall of China), it is preferred to try usi
 ** So what can a super-inspire do? **
 
 1. When you need a clean Linux environment for your presentation, you can try to use it to give a presentation to the audience
+
 2. When the school teaching /LUG activity needs everyone to use linux system, you can let students who can't install Linux temporarily experience the charm of Linux
+
 3. When you have an inspiration and want to try it in a clean environment, why not use a super-inspire out of the box?
+
 4. When I'm outside and I don't have a device , the super-inspire allows me to manage servers on any device.
+
 5. See a project on GitHub that you're very interested in trying, but was put off by the fact that it's running on Linux?Super-inspire allows you to get a clean environment in 30s, and you can even open a port for testing programs that need ports (for instance,Develop port 80 for testing).
+
 6. Super-inspire due to use docker as its support, so we use cgroups to manage performance. If you want to test whether one of your apps can run under a certain performance, it is a good choice to use super-inspire
 
 More useful things of super-inspire are you thinking about
@@ -51,11 +56,11 @@ In addition, we are planning to develop persistence containers so that some user
 To access the temporary server address, you can choose a favorite system here, and then the system will automatically create the system's container, and automatically open a new web page into the web shell interaction.
 
 - currently support Ubuntu14.04, 16.04, 18.04;CentOS6.10;CentOS7;Alpine Latest.
-- please note that pop-up Windows are allowed.
+- please note that pop-up windows are allowed.
 
-## How to deploy super-inspire?/ how dispose?
+## How to deploy super-inspire?
 
-If you think the experience provided by the official server is too slow, welcome to deploy one yourself. It's very easy to deploy a super-inspire, and you need to have the following environment:
+If you think the experience provided by the official server is too slow, welcome to deploy one yourself! It's very easy to deploy a super-inspire, and you need to have the following environment:
 
 1. Linux system with docker, Ubuntu:16.04 is recommended
 
@@ -63,19 +68,20 @@ If you think the experience provided by the official server is too slow, welcome
 
 # git clone https://github.com/super-inspire/super-inspire-end.git
 
-# cd super - inspire - end /
+# cd super-inspire-end/
 
-# sudo. / init. Sh
+# sudo  ./ init. Sh
 
-# docker - compose up
+# docker-compose up -d
 
 ```
 
-Now you can use the local inspire edition! 
+Now you can use the local super-inspire! 
 By default, please visit localhost:8888 to test.
 
-## the questions?
+## The questions?
 
 If you have any questions, please submit the issue, we will check and reply soon.
-Thanks a lot to the **ttyd** project of tsl0922 boss. It was with it that super-inspire was able to complete the components of webshell.
+Thanks a lot to the **ttyd** project of tsl0922 . It was with it that super-inspire was able to complete the components of webshell.
+
 I wish you greater access to Linux and open source through the super-inspire, which is our biggest dream.
