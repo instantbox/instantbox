@@ -70,7 +70,7 @@ If you think the experience provided by the official server is too slow, welcome
 
 # cd super-inspire-end/
 
-# sudo  ./ init. Sh
+# sudo  ./init.sh
 
 # docker-compose up -d
 
