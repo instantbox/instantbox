@@ -4,9 +4,9 @@
 
 English | [中文](./docs/README-zh.md)
 
-### Get a clean, out of the box, temporary Linux system in under 30s.
+### Get a clean, out of the box, temporary Linux in under 30s.
 
-What's a super-inspire?It allows you to use the web to operate an out-of-the-box Linux system in less than 30 seconds using only a browser. Of course, the "system" here is implemented with docker, so it cannot be considered as a more isolated virtualization system like KVM.
+What's a super-inspire?It allows you to access the web to operate an out-of-the-box Linux system in less than 30 seconds using only a browser. Of course, the "system" here is implemented with docker, so it cannot be considered as a more isolated virtualization system like KVM.
 
 ![](./terminal.png)
 
@@ -23,14 +23,14 @@ If super-inspire can help you and provide sponsorship with conditions and intere
 - http://34.80.61.20:8888
 - http://35.220.241.175:8888
 
-In the case of over the wall, it is preferred to try using a foreign temporary test server
+In the case of over the GFW(Great Firewall of China), it is preferred to try using a foreign temporary test server
 
-# # Introduction
+## Introduction
 
-** _So what can a super-inspire do?_ **
+** So what can a super-inspire do? **
 
 1. When you need a clean Linux environment for your presentation, you can try to use it to give a presentation to the audience
-2. When the school teaching /LUG activity needs everyone to carry out Linux lab together, you can let students who can't install Linux temporarily experience the charm of Linux
+2. When the school teaching /LUG activity needs everyone to use linux system, you can let students who can't install Linux temporarily experience the charm of Linux
 3. When you have an inspiration and want to try it in a clean environment, why not use a super-inspire out of the box?
 4. When I'm outside and I don't have a device , the super-inspire allows me to manage servers on any device.
 5. See a project on GitHub that you're very interested in trying, but was put off by the fact that it's running on Linux?Super-inspire allows you to get a clean environment in 30s, and you can even open a port for testing programs that need ports (for instance,Develop port 80 for testing).
