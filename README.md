@@ -64,17 +64,7 @@ If you think the experience provided by the official server is too slow, welcome
 
 1. Linux system with docker, Ubuntu:16.04 is recommended
 
-```
-
-# git clone https://github.com/super-inspire/super-inspire-end.git
-
-# cd super-inspire-end/
-
-# sudo  ./init.sh
-
-# docker-compose up -d
-
-```
+![](./demo/demo.png)
 
 Now you can use the local super-inspire! 
 By default, please visit localhost:8888 to test.
