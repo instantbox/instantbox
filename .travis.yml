@@ -25,8 +25,8 @@ notifications:
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-      docker tag catone/inspire:pre_build catone/inspire:server
-      docker push catone/inspire:server
-      docker push catone/inspire:nginx
+      docker tag catone/inspire:pre_build catone/inspire:server;
+      docker push catone/inspire:server;
+      docker push catone/inspire:nginx;
     fi
 
