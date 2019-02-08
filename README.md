@@ -4,6 +4,8 @@
 
 English | [中文](./docs/README-zh.md)
 
+
+
 ### Get a clean, out of the box, temporary Linux in under 30s.
 
 What's a super-inspire?It allows you to access the web to operate an out-of-the-box Linux system in less than 30 seconds using only a browser. Of course, the "system" here is implemented with docker, so it cannot be considered as a more isolated virtualization system like KVM.
@@ -11,6 +13,9 @@ What's a super-inspire?It allows you to access the web to operate an out-of-the-
 ![](./terminal.png)
 
 </div>
+
+[![Backers on Open Collective](https://opencollective.com/super-inspire-end/backers/badge.svg)](#backers)
+ [![Sponsors on Open Collective](https://opencollective.com/super-inspire-end/sponsors/badge.svg)](#sponsors) 
 
 ## Current status and acceptance of sponsorship
 
@@ -75,3 +80,33 @@ If you have any questions, please submit the issue, we will check and reply soon
 Thanks a lot to the **ttyd** project of tsl0922 . It was with it that super-inspire was able to complete the components of webshell.
 
 I wish you greater access to Linux and open source through the super-inspire, which is our biggest dream.
+
+## Contributors
+
+This project exists thanks to all the people who contribute. 
+<a href="https://github.com/super-inspire/super-inspire-end/graphs/contributors"><img src="https://opencollective.com/super-inspire-end/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/super-inspire-end#backer)]
+
+<a href="https://opencollective.com/super-inspire-end#backers" target="_blank"><img src="https://opencollective.com/super-inspire-end/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/super-inspire-end#sponsor)]
+
+<a href="https://opencollective.com/super-inspire-end/sponsor/0/website" target="_blank"><img src="https://opencollective.com/super-inspire-end/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/super-inspire-end/sponsor/1/website" target="_blank"><img src="https://opencollective.com/super-inspire-end/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/super-inspire-end/sponsor/2/website" target="_blank"><img src="https://opencollective.com/super-inspire-end/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/super-inspire-end/sponsor/3/website" target="_blank"><img src="https://opencollective.com/super-inspire-end/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/super-inspire-end/sponsor/4/website" target="_blank"><img src="https://opencollective.com/super-inspire-end/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/super-inspire-end/sponsor/5/website" target="_blank"><img src="https://opencollective.com/super-inspire-end/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/super-inspire-end/sponsor/6/website" target="_blank"><img src="https://opencollective.com/super-inspire-end/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/super-inspire-end/sponsor/7/website" target="_blank"><img src="https://opencollective.com/super-inspire-end/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/super-inspire-end/sponsor/8/website" target="_blank"><img src="https://opencollective.com/super-inspire-end/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/super-inspire-end/sponsor/9/website" target="_blank"><img src="https://opencollective.com/super-inspire-end/sponsor/9/avatar.svg"></a>
+
+
