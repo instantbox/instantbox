@@ -23,8 +23,8 @@ notifications:
   email: true
   
 after_success:
-  - echo $DOCKER_USERNAME
-  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD;
+  - echo "$DOCKER_USERNAME"
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
       docker tag catone/inspire:pre_build catone/inspire:server;
       docker push catone/inspire:server;
