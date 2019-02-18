@@ -2,7 +2,7 @@
 
 # super-inspire-end
 
-[Englist](../README.md) | 中文
+[English](../README.md) | 中文
 
 ### 在不到 30s 内得到一个干净的开箱即用的临时 linux 系统.
 
