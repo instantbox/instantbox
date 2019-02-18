@@ -25,8 +25,7 @@ If super-inspire can help you and provide sponsorship with conditions and intere
 
 - start domestic temporary server has resumed, but still behind the wall of temporary server performance, request address is http://60.190.81.133:8888
 - the newly started temporary test server outside the wall has good performance and requests the address
-- http://34.80.61.20:8888
-- http://35.220.241.175:8888
+- http://35.220.214.188:8888/
 
 In the case of over the GFW(Great Firewall of China), it is preferred to try using a foreign temporary test server
 
