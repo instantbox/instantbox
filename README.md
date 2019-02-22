@@ -12,6 +12,9 @@ What's a super-inspire?It allows you to access the web to operate an out-of-the-
 
 ![](./terminal.png)
 
+Join discuss in telegram group: https://t.me/joinchat/HtYtxRSerOwrMLg_2_wZTQ
+
+
 </div>
 
 [![Backers on Open Collective](https://opencollective.com/super-inspire-end/backers/badge.svg)](#backers)
