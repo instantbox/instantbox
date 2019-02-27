@@ -1,34 +1,24 @@
-
 version: '3'
 
 services:
-
-  inspire:
-    image: catone/inspire:server
-    container_name: inspire_flask
-
+  server:
+    image: instantbox/instantbox:latest
+    container_name: instantbox_server
     links:
       - redis
-
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: python3 ./inspire.py
-
+    environment:
+      - SERVERURL=
 
   redis:
     image: redis:latest
-    container_name: inspire_redis
+    container_name: instantbox_redis
 
-
-  nginx:
-    image: catone/inspire:nginx
+  frontend:
+    image: instantbox/instantbox-frontend:latest
+    container_name: instantbox_frontend
     links:
-      - inspire
+      - server
     ports:
-      - 9010:80
-      - 8888:81
-    volumes:
-      - /var/build:/var/build
-
-
-    container_name: inspire_nginx
+      - 8888:80

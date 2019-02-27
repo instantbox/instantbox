@@ -1,23 +1,31 @@
-FROM ubuntu:16.04
-MAINTAINER Cat.1 docker@gansi.me
+FROM python:3-alpine AS builder
 
-RUN apt-get update -qq && apt-get -y install python3-pip python3 python-dev\
-     build-essential libssl-dev libffi-dev python3-dev libxml2-dev libxslt1-dev \
-     zlib1g-dev locales libltdl7 lsof curl
+WORKDIR /usr/src/app
 
-
-RUN locale-gen zh_CN.UTF-8 && rm -rf /var/lib/apt/lists/* && apt-get clean
-
-ENV LC_ALL=zh_CN.UTF-8
-ENV PYTHONIOENCODING=utf-8
-
-RUN mkdir -p /superinspire/ && cd /superinspire
-WORKDIR /superinspire
-
-ADD requirement.txt /superinspire/
-RUN pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r /superinspire/requirement.txt
+COPY requirement.txt ./
+RUN pip3 install -q --no-cache-dir -r requirement.txt -t ./ -i https://pypi.tuna.tsinghua.edu.cn/simple
+COPY . .
+ADD https://raw.githubusercontent.com/instantbox/instantbox-images/master/manifest.json .
 
 
-ADD ./ /superinspire/
+FROM gcr.io/distroless/python3
 
-CMD python3 ./inspire.py
+LABEL \
+  org.label-schema.schema-version="1.0" \
+  org.label-schema.name="instantbox" \
+  org.label-schema.vcs-url="https://github.com/instantbox/instantbox" \
+  maintainer="Instantbox Team <team@instantbox.org>"
+
+ENV SERVERURL ""
+
+WORKDIR /app
+COPY --from=builder /usr/src/app/ .
+
+EXPOSE 65501
+CMD ["inspire.py"]
+
+ARG BUILD_DATE
+ARG VCS_REF
+LABEL \
+  org.label-schema.build-date=$BUILD_DATE \
+  org.label-schema.vcs-ref=$VCS_REF

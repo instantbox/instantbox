@@ -1,3 +1,5 @@
+#!/bin/python
+
 import re
 import os
 import sys
@@ -7,10 +9,10 @@ import random
 import string
 import subprocess
 from flask_cors import CORS
-from API.redisCli import ConnectRedis
-from API.rmContainer import RmContainer
+from api.redisCli import ConnectRedis
+from api.rmContainer import RmContainer
 from flask import render_template,redirect
-from API.createContainer import CreateContainer
+from api.createContainer import CreateContainer
 from flask import Flask,request,Response,jsonify
 
 
@@ -24,7 +26,7 @@ create_container_client = CreateContainer()
 rm_container_client = RmContainer()
 
 
-SERVERURL = os.popen('curl ip.sb').readlines()[0].split('\n')[0]
+SERVERURL = os.environ.get('SERVERURL')    
 
 
 OS_SWITCH = {

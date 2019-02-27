@@ -1,103 +1,35 @@
-# init.sh
+#!/bin/sh
+#
+# Install script for instantbox
+# Home Page: https://github.com/instantbox/instantbox
+#
+# Usage:
+#  mkdir instantbox && cd $_
+#  bash <(curl -sSL https://raw.githubusercontent.com/instantbox/instantbox/master/init.sh)"
+#  docker-compose up -d
+#
 
 check_cmd() {
-    which $1 > /dev/null 2>&1
+    command -v "$1" >/dev/null 2>&1
 }
 
-pretty_name=""
-UPDATE=""
-INSTALL=""
-REMOVE=""
-show_distribution() {
+echo "Welcome to instantbox, please wait..."
+echo ""
 
-
-    if [ -f /etc/os-release ];
-    then
-        . /etc/os-release
-        pretty_name="$PRETTY_NAME"
-
-        LSB_ID="$(echo "$ID" | tr '[:upper:]' '[:lower:]')"
-
-    elif [ -f /etc/redhat-release ];
-    then
-        pretty_name=$(cat /etc/redhat-release)
-        LSB_ID="$(echo "$pretty_name" | tr '[:upper:]' '[:lower:]')"
-        echo "$LSB_ID" | grep centos > /dev/null && LSB_ID=centos
-    fi
-
-    LSB_ID=$(echo "$LSB_ID" | tr '[:upper:]' '[:lower:]')
-
-    echo "Platform: $pretty_name"
-}
-
-
-detect_pkg_tool() {
-
-    check_cmd apt && {
-        UPDATE="apt update -q"
-        INSTALL="apt install -y"
-        REMOVE="apt remove -y"
-        return 0
-    }
-
-    check_cmd apt-get && {
-        UPDATE="apt-get update -q"
-        INSTALL="apt-get install -y"
-        REMOVE="apt-get remove -y"
-        return 0
-    }
-
-    check_cmd yum && {
-        UPDATE="yum update -yq"
-        INSTALL="yum install -y"
-        REMOVE="yum "
-        PKG_LIBEV="libev-devel"
-        PKG_SSL="openssl-devel"
-        return 0
-    }
-
-    check_cmd pacman && {
-        UPDATE="pacman -Sy --noprogressbar"
-        INSTALL="pacman -S --noconfirm --noprogressbar"
-        REMOVE="pacman -R --noconfirm --noprogressbar"
-        PKG_LIBEV="libev"
-        PKG_SSL="openssl"
-        return 0
-    }
-
-    return 1
-}
-
-clone_html(){
-    git clone https://github.com/super-inspire/super-inspire-frontend.git /var/super-inspire-frontend
-    mv /var/super-inspire-frontend/build /var/build
-    rm -rf /var/super-inspire-frontend
-}
-
-
-
-show_distribution
-detect_pkg_tool
-
-if [[ detect_pkg_tool == 1 ]]; then
-    echo 'not support platform'
-    exit 1
+if check_cmd docker-compose; then
+    curl -sSL https://raw.githubusercontent.com/docker/compose/master/script/run/run.sh > /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose || exit 1
 fi
 
-check_cmd git || {
-    $UPDATE && $INSTALL git
-}
+curl -sSLO https://raw.githubusercontent.com/instantbox/instantbox/master/docker-compose.yml
 
-check_cmd wget || {
-    $UPDATE && $INSTALL wget
-}
+echo "Enter your IP (optional): "
+read IP
+echo "Choose a port (default: 8888): "
+read PORT
 
-clone_html
+[  -z "$IP" ] || sed -i -e "s/SERVERURL=$/SERVERURL=$IP/" docker-compose.yml
+[  -z "$PORT" ] || sed -i -e "s/8888:80/$PORT:80/" docker-compose.yml
 
-check_cmd docker-compose || {
-    wget https://github.com/docker/compose/releases/download/1.23.2/docker-compose-Linux-x86_64
-    mv docker-compose-Linux-x86_64 docker-compose && chmod +x docker-compose
-    mv docker-compose /usr/bin
-}
-
-
+echo "You're all set! "
+echo "Run 'docker-compose up -d' then go to http://${IP:-localhost}:${PORT:-8888} on your browser."
