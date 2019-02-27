@@ -6,26 +6,24 @@ python:
   - "3.6"
 
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install sshpass
-
+  - sudo apt-get update -qq
+  - sudo apt-get install sshpass -qq -y
 
 services:
   - docker
 
 script:
-  - docker build -t="catone/inspire:pre_build" -f ./Dockerfile .
-  - docker build -t="catone/inspire:nginx" -f ./nginxDocker/Dockerfile ./nginxDocker/
-  - docker run -d -P --name="inspire" catone/inspire:pre_build
+  - docker build -t="instantbox/instantbox:pre_build" -f ./Dockerfile .
+  - docker run -d -P --name="inspire" instantbox/instantbox:pre_build
   - docker rm -f inspire || true
 
 notifications:
   email: true
   
 after_success:
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-      docker tag catone/inspire:pre_build catone/inspire:server;
-      docker push catone/inspire:server;
-      docker push catone/inspire:nginx;
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then 
+      docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+      docker tag instantbox/instantbox:pre_build instantbox/instantbox;
+      docker push instantbox/instantbox;
     fi
 
