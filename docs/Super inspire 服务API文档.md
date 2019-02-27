@@ -102,84 +102,107 @@ GET /v1/superspire/getOSList
 
 ```json
 # 返回范例
-[{
-    "label": "Ubuntu",
-    "value": "Ubuntu",
-    "subList":[{
-        'label':"12.04",
-        'osCode':"10000"
-        }, {
-        'label':"14.04",
-        'osCode':"10001"
-        }, {
-        'label':"16.04",
-        'osCode':"10002"
-        }, {
-        'label':"18.04",
-        'osCode':"10003"
-        }, {
-        'label':"latest",
-        'osCode':"10004"
-        }
-    ]}, {
-    "label": "CentOS",
-    "value": "CentOS",
-    "subList":[{
-        'label':"6.10",
-        'osCode':"20000"
-        }, {
-        'label':"7",
-        'osCode':"20001"
-        }, {
-        'label':"latest",
-        'osCode':"20002"
-        }
-    ]}, {
-
-    "label": "Arch Linux",
-    "value": "Arch Linux",
-    "subList":[{
-        'label':"2018.12.01",
-        'osCode':"30000"
-        }, {
-        'label':"latest",
-        'osCode':"30001"
-        }
-    ]}, {
-
-    "label": "Debian",
-    "value": "Debian",
-    "subList":[{
-        'label':"9.6.0",
-        'osCode':"40000"
-        }, {
-        'label':"latest",
-        'osCode':"40001"
-        }, 
-    ]}, {
-
-    "label": "Fedora",
-    "value": "Fedora",
-    "subList":[{
-        'label':"28",
-        'osCode':"50000"
-        }, {
-        'label':"29",
-        'osCode':"50001"
-        }, {
-        'label':"latest",
-        'osCode':"50002"
-        },
-    ]}, {
-
-    "label": "Alpine",
-    "value": "Alpine",
-    "subList":[{
-        'label':"latest",
-        'osCode':"60000"
-        },
-    ]},
-
+[
+    {
+        "label": "Ubuntu",
+        "value": "Ubuntu",
+        "subList": [
+            {
+                "label": "12.04",
+                "osCode": "10000"
+            },
+            {
+                "label": "14.04",
+                "osCode": "10001"
+            },
+            {
+                "label": "16.04",
+                "osCode": "10002"
+            },
+            {
+                "label": "18.04",
+                "osCode": "10003"
+            },
+            {
+                "label": "latest",
+                "osCode": "10004"
+            }
+        ]
+    },
+    {
+        "label": "CentOS",
+        "value": "CentOS",
+        "subList": [
+            {
+                "label": "6.10",
+                "osCode": "20000"
+            },
+            {
+                "label": "7",
+                "osCode": "20001"
+            },
+            {
+                "label": "latest",
+                "osCode": "20002"
+            }
+        ]
+    },
+    {
+        "label": "Arch Linux",
+        "value": "Arch Linux",
+        "subList": [
+            {
+                "label": "2018.12.01",
+                "osCode": "30000"
+            },
+            {
+                "label": "latest",
+                "osCode": "30001"
+            }
+        ]
+    },
+    {
+        "label": "Debian",
+        "value": "Debian",
+        "subList": [
+            {
+                "label": "9.6.0",
+                "osCode": "40000"
+            },
+            {
+                "label": "latest",
+                "osCode": "40001"
+            }
+        ]
+    },
+    {
+        "label": "Fedora",
+        "value": "Fedora",
+        "subList": [
+            {
+                "label": "28",
+                "osCode": "50000"
+            },
+            {
+                "label": "29",
+                "osCode": "50001"
+            },
+            {
+                "label": "latest",
+                "osCode": "50002"
+            }
+        ]
+    },
+    {
+        "label": "Alpine",
+        "value": "Alpine",
+        "subList": [
+            {
+                "label": "latest",
+                "osCode": "60000"
+            }
+        ]
+    }
 ]
 ```
 

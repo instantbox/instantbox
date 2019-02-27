@@ -1,13 +1,7 @@
-#!/usr/bin/env python3
-# @File:killContainer.py
-# @Date:2019/01/14
-# Author:Cat.1
-
 import re
 import datetime
 import time
 import subprocess
-
 
 TIMEFORMAT = '%H:%M:%S'
 DAYEFORMAT = '%Y-%m-%d'
