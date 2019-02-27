@@ -1,0 +1,5 @@
+*
+.*
+!*.py
+!api/
+!requirement.txt

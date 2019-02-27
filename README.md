@@ -71,7 +71,10 @@ If you think the experience provided by the official server is too slow, welcome
 
 1. Linux system with docker, Ubuntu:16.04 is recommended
 
-![](./demo/demo.png)
+```bash
+mkdir instantbox && cd $_
+bash <(curl -sSL https://raw.githubusercontent.com/instantbox/instantbox/master/init.sh)"
+```
 
 Now you can use the local instantbox! 
 By default, please visit localhost:8888 to test.
