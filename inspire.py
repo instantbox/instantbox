@@ -53,7 +53,7 @@ OS_SWITCH = {
 OS_LIST = [{
     "label": "Ubuntu",
     "value": "Ubuntu",
-    "logoUrl":"https://cdn.jsdelivr.net/gh/super-inspire/super-inspire-end/nginxDocker/icon/ubuntu.png",
+    "logoUrl":"https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/ubuntu.png",
     "subList":[{
         'label':"12.04",
         'osCode':"10000"
@@ -73,7 +73,7 @@ OS_LIST = [{
     ]}, {
     "label": "CentOS",
     "value": "CentOS",
-    "logoUrl":"https://cdn.jsdelivr.net/gh/super-inspire/super-inspire-end/nginxDocker/icon/cent-os.png",
+    "logoUrl":"https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/centos.png",
     "subList":[{
         'label':"6.10",
         'osCode':"20000"
@@ -88,7 +88,7 @@ OS_LIST = [{
 
     "label": "Arch Linux",
     "value": "Arch Linux",
-    "logoUrl":"https://cdn.jsdelivr.net/gh/super-inspire/super-inspire-end/nginxDocker/icon/arch.png",
+    "logoUrl":"https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/arch.png",
     "subList":[{
         'label':"2018.12.01",
         'osCode':"30000"
@@ -100,7 +100,7 @@ OS_LIST = [{
 
     "label": "Debian",
     "value": "Debian",
-    "logoUrl":"https://cdn.jsdelivr.net/gh/super-inspire/super-inspire-end/nginxDocker/icon/debain.png",
+    "logoUrl":"https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/debian.png",
     "subList":[{
         'label':"9.6.0",
         'osCode':"40000"
@@ -112,7 +112,7 @@ OS_LIST = [{
 
     "label": "Fedora",
     "value": "Fedora",
-    "logoUrl":"https://cdn.jsdelivr.net/gh/super-inspire/super-inspire-end/nginxDocker/icon/fedora.png",
+    "logoUrl":"https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/fedora.png",
     "subList":[{
         'label':"28",
         'osCode':"50000"
@@ -127,7 +127,7 @@ OS_LIST = [{
 
     "label": "Alpine",
     "value": "Alpine",
-    "logoUrl":"https://cdn.jsdelivr.net/gh/super-inspire/super-inspire-end/nginxDocker/icon/alpine.png",
+    "logoUrl":"https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/alpine.png",
     "subList":[{
         'label':"latest",
         'osCode':"60000"
@@ -347,5 +347,3 @@ def getOS():
 if __name__ == '__main__':
 
     app.run(host="0.0.0.0", port=int(65501), debug = False)
-
-
