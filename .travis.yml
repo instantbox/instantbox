@@ -12,17 +12,18 @@ script:
   - docker build --cache-from "$IMAGE_NAME" 
       --build-arg BUILD_DATE="$(date -u +'%Y-%m-%dT%H:%M:%SZ')" 
       --build-arg VCS_REF="$TRAVIS_COMMIT" 
-      -t "$IMAGE_NAME" -f ./Dockerfile .
-  - docker run -d -P --name temp "$IMAGE_NAME"
+      -t "build/$IMAGE_NAME" -f ./Dockerfile .
+  - docker run -d -P --name temp "build/$IMAGE_NAME"
   - docker rm -f temp || true
   
 after_success:
   - if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]]; then 
       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD_SECURE";
+      docker tag "build/$IMAGE_NAME" "$IMAGE_NAME";
       docker push "$IMAGE_NAME";
     fi
   - if [[ -n "$TRAVIS_TAG" ]]; then
       docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD_SECURE";
-      docker tag "$IMAGENAME" "$IMAGENAME:$TRAVIS_TAG";
-      docker push "$IMAGE_NAME";
+      docker tag "build/$IMAGENAME" "$IMAGENAME:$TRAVIS_TAG";
+      docker push "$IMAGE_NAME:$TRAVIS_TAG";
     fi
