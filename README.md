@@ -73,7 +73,7 @@ If you think the experience provided by the official server is too slow, welcome
 
 ```bash
 mkdir instantbox && cd $_
-bash <(curl -sSL https://raw.githubusercontent.com/instantbox/instantbox/master/init.sh)"
+bash <(curl -sSL https://raw.githubusercontent.com/instantbox/instantbox/master/init.sh)
 ```
 
 Now you can use the local instantbox! 
@@ -113,5 +113,3 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/super-inspire-end/sponsor/7/website" target="_blank"><img src="https://opencollective.com/super-inspire-end/sponsor/7/avatar.svg"></a>
 <a href="https://opencollective.com/super-inspire-end/sponsor/8/website" target="_blank"><img src="https://opencollective.com/super-inspire-end/sponsor/8/avatar.svg"></a>
 <a href="https://opencollective.com/super-inspire-end/sponsor/9/website" target="_blank"><img src="https://opencollective.com/super-inspire-end/sponsor/9/avatar.svg"></a>
-
-
