@@ -16,6 +16,11 @@ check_cmd() {
 echo "Welcome to instantbox, please wait..."
 echo ""
 
+if check_cmd docker; then
+    echo "docker is not installed, please try again after it's installed"
+    exit 1
+fi
+
 if check_cmd docker-compose; then
     curl -sSL https://raw.githubusercontent.com/docker/compose/master/script/run/run.sh > /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose || exit 1
