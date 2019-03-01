@@ -45,7 +45,7 @@ We currently supports various versions of Ubuntu, CentOS, Arch Linux, Debian, Fe
 
 ## Quickstart
 
-Go to http://35.220.214.188:8888 and follow instructions
+Go to http://35.220.214.188:8888 and follow the instructions
 
 ![Demo screenshot](https://user-images.githubusercontent.com/5880908/53613565-6237a500-3ba4-11e9-9e39-8ea48cee73ee.png)
 

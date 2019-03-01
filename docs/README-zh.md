@@ -6,7 +6,7 @@
 
 # instantbox
 
-在不到 30s 内得到一个干净的开箱即用的临时 Linux 系统.
+在不到 30s 内得到一个干净、开箱即用的临时 Linux 系统.
 
 [![Travis CI](https://badgen.net/travis/instantbox/instantbox)](https://travis-ci.com/instantbox/instantbox)
 [![Docker](https://badgen.net/badge//instantbox%2Finstantbox?icon=docker)](https://hub.docker.com/r/instantbox/instantbox)
