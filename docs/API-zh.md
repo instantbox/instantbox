@@ -63,7 +63,7 @@
 |           | 正常请求 | 异常请求 |
 | --------- | ------- | ------- |
 | HTTP状态码 | 1 OK | 4** : 用户请求错误。 5** : server 服务失败。 |
-| HTTP BODY | API 响应内容。除特殊说明外，为 JSON 字符串，例如：`{"statusCode":1，"message": "SUCCESS"}` | JSON 字符串，例如：`{"statusCode":404，"message": "Not support OS!"}` |
+| HTTP BODY | API 响应内容。除特殊说明外，为 JSON 字符串，例如：`{"statusCode":1, "message": "SUCCESS"}` | JSON 字符串，例如：`{"statusCode":404, "message": "Not support OS!"}` |
 
 
 ## 状态码
@@ -102,6 +102,7 @@ GET /getOSList
     {
         "label": "Ubuntu",
         "value": "Ubuntu",
+        "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/ubuntu.png",
         "subList": [
             {
                 "label": "12.04",
@@ -128,6 +129,7 @@ GET /getOSList
     {
         "label": "CentOS",
         "value": "CentOS",
+        "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/centos.png",
         "subList": [
             {
                 "label": "6.10",
@@ -146,6 +148,7 @@ GET /getOSList
     {
         "label": "Arch Linux",
         "value": "Arch Linux",
+        "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/arch.png",
         "subList": [
             {
                 "label": "2018.12.01",
@@ -160,6 +163,7 @@ GET /getOSList
     {
         "label": "Debian",
         "value": "Debian",
+        "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/debian.png",
         "subList": [
             {
                 "label": "9.6.0",
@@ -174,6 +178,7 @@ GET /getOSList
     {
         "label": "Fedora",
         "value": "Fedora",
+        "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/fedora.png",
         "subList": [
             {
                 "label": "28",
@@ -192,6 +197,7 @@ GET /getOSList
     {
         "label": "Alpine",
         "value": "Alpine",
+        "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/alpine.png",
         "subList": [
             {
                 "label": "latest",
