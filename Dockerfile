@@ -3,7 +3,7 @@ FROM python:3-alpine AS builder
 WORKDIR /usr/src/app
 
 COPY requirement.txt ./
-RUN pip3 install -q --no-cache-dir -r requirement.txt -t ./ -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN pip3 install -q --no-cache-dir -r requirement.txt -t ./
 COPY . .
 ADD https://raw.githubusercontent.com/instantbox/instantbox-images/master/manifest.json .
 

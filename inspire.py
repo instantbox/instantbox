@@ -24,135 +24,16 @@ rm_container_client = RmContainer()
 
 SERVERURL = os.environ.get('SERVERURL')
 
-OS_SWITCH = {
-    "10000": "ubuntu12_04",
-    "10001": "ubuntu14_04",
-    "10002": "ubuntu16_04",
-    "10003": "ubuntu18_04",
-    "10004": "ubuntuLatest",
-    "20000": "centos6_10",
-    "20001": "centos7",
-    "20002": "centosLatest",
-    "30000": "2018.12.01",
-    "30001": "archLatest",
-    "40000": "debian9_6_0",
-    "40001": "debianLatest",
-    "50000": "fedora28",
-    "50001": "fedora29",
-    "50002": "fedoraLatest",
-    "60000": "alpineLatest"
-}
+OS_LIST = None
+with open("manifest.json", "r") as os_manifest:
+    OS_LIST = json.load(os_manifest)
+if OS_LIST is None:
+    raise Exception('Could not load manifest.json')
 
-# yapf: disable
-OS_LIST = [
-    {
-        "label": "Ubuntu",
-        "value": "Ubuntu",
-        "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/ubuntu.png",
-        "subList": [
-            {
-                "label": "12.04",
-                "osCode": "10000"
-            },
-            {
-                "label": "14.04",
-                "osCode": "10001"
-            },
-            {
-                "label": "16.04",
-                "osCode": "10002"
-            },
-            {
-                "label": "18.04",
-                "osCode": "10003"
-            },
-            {
-                "label": "latest",
-                "osCode": "10004"
-            }
-        ]
-    },
-    {
-        "label": "CentOS",
-        "value": "CentOS",
-        "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/centos.png",
-        "subList": [
-            {
-                "label": "6.10",
-                "osCode": "20000"
-            },
-            {
-                "label": "7",
-                "osCode": "20001"
-            },
-            {
-                "label": "latest",
-                "osCode": "20002"
-            }
-        ]
-    },
-    {
-        "label": "Arch Linux",
-        "value": "Arch Linux",
-        "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/arch.png",
-        "subList": [
-            {
-                "label": "2018.12.01",
-                "osCode": "30000"
-            },
-            {
-                "label": "latest",
-                "osCode": "30001"
-            }
-        ]
-    },
-    {
-        "label": "Debian",
-        "value": "Debian",
-        "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/debian.png",
-        "subList": [
-            {
-                "label": "9.6.0",
-                "osCode": "40000"
-            },
-            {
-                "label": "latest",
-                "osCode": "40001"
-            }
-        ]
-    },
-    {
-        "label": "Fedora",
-        "value": "Fedora",
-        "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/fedora.png",
-        "subList": [
-            {
-                "label": "28",
-                "osCode": "50000"
-            },
-            {
-                "label": "29",
-                "osCode": "50001"
-            },
-            {
-                "label": "latest",
-                "osCode": "50002"
-            }
-        ]
-    },
-    {
-        "label": "Alpine",
-        "value": "Alpine",
-        "logoUrl": "https://cdn.jsdelivr.net/gh/instantbox/instantbox-images/icon/alpine.png",
-        "subList": [
-            {
-                "label": "latest",
-                "osCode": "60000"
-            }
-        ]
-    }
-]
-# yapf: enable
+AVAILABLE_OS = []
+for os in OS_LIST:
+    for ver in os['subList']:
+        AVAILABLE_OS.append(ver['osCode'])
 
 
 def randPort():
@@ -249,7 +130,7 @@ def getOS():
     openPort = ''
 
     try:
-        os_info = request.args.get("os")
+        os_name = request.args.get("os")
     except Exception:
         response = Response(
             json.dumps({
@@ -264,7 +145,7 @@ def getOS():
             os_port = request.args.get("port")
             os_timeout = request.args.get("timeout")
         except Exception:
-            if os_info not in OS_SWITCH:
+            if os_name not in AVAILABLE_OS:
                 response = Response(
                     json.dumps({
                         "message":
@@ -290,7 +171,7 @@ def getOS():
                         cpu=os_cpu,
                         web_shell_port=webShellPort,
                         container_name=rand_string,
-                        os_name=OS_SWITCH[os_info],
+                        os_name=os_name,
                     )
 
                 else:
@@ -300,7 +181,7 @@ def getOS():
                         cpu=os_cpu,
                         web_shell_port=webShellPort,
                         container_name=rand_string,
-                        os_name=OS_SWITCH[os_info],
+                        os_name=os_name,
                         open_port=os_port,
                         rand_port=openPort)
 
