@@ -15,24 +15,17 @@ class CreateContainer(object):
                             open_port=None,
                             rand_port=None) -> bool:
 
-        shell = "bash"
-
-        if "alpine" in os_name:
-            shell = "sh"
-
         if open_port is None:
-            port_dict = {str(web_shell_port) + '/tcp': str(web_shell_port)}
+            port_dict = {'1588/tcp': str(web_shell_port)}
         else:
             port_dict = {
-                str(web_shell_port) + '/tcp': str(web_shell_port),
+                '1588/tcp': str(web_shell_port),
                 str(open_port) + '/tcp': str(rand_port)
             }
 
         try:
-
             self.client.containers.run(
-                image="catone/inspire:%s" % os_name,
-                command="ttyd_linux.x86_64 -p %s %s" % (web_shell_port, shell),
+                image=os_name,
                 cpu_period=100000,
                 cpu_quota=int("%s0000" % cpu),
                 mem_limit="%sm" % mem,
@@ -50,4 +43,5 @@ class CreateContainer(object):
 
 if __name__ == '__main__':
     test = CreateContainer()
-    test.is_create_container("512", 1, 32233, "kldasf", "ubuntu16_04")
+    test.is_create_container("512", 1, 32233, "test_container",
+                             "instantbox/ubuntu:latest")
