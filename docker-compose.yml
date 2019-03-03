@@ -4,16 +4,12 @@ services:
   server:
     image: instantbox/instantbox:latest
     container_name: instantbox_server
-    links:
-      - redis
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - SERVERURL=
-
-  redis:
-    image: redis:latest
-    container_name: instantbox_redis
+    networks:
+      - instantbox_net
 
   frontend:
     image: instantbox/instantbox-frontend:latest
@@ -22,3 +18,18 @@ services:
       - server
     ports:
       - 8888:80
+    networks:
+      - instantbox_net
+
+  cron:
+    image: xordiv/docker-alpine-cron
+    container_name: instantbox_cron
+    links:
+      - frontend
+    environment:
+      - CRON_STRINGS=* * * * * wget -qO /dev/null http://frontend/api/v2/superinspire/prune
+    networks:
+      - instantbox_net
+
+networks:
+  instantbox_net:
