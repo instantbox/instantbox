@@ -36,9 +36,12 @@ echo "Enter your IP (optional): "
 read IP
 echo "Choose a port (default: 8888): "
 read PORT
+echo "Run in swarm mode (y/n)? (default: n):"
+read SWARM_MODE
 
 [  -z "$IP" ] || sed -i -e "s/SERVERURL=$/SERVERURL=$IP/" docker-compose.yml
 [  -z "$PORT" ] || sed -i -e "s/8888:80/$PORT:80/" docker-compose.yml
+[ "$SWARM_MODE" == "y" ] && sed -i -e "s/SWARM_MODE=0/SWARM_MODE=1/" docker-compose.yml
 
 echo "You're all set! "
 echo "Run 'docker-compose up -d' then go to http://${IP:-localhost}:${PORT:-8888} on your browser."

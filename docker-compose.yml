@@ -8,8 +8,14 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       - SERVERURL=
+      - SWARM_MODE=0
     networks:
       - instantbox_net
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
 
   frontend:
     image: instantbox/instantbox-frontend:latest
@@ -20,6 +26,8 @@ services:
       - 8888:80
     networks:
       - instantbox_net
+    deploy:
+      mode: global
 
   cron:
     image: xordiv/docker-alpine-cron
@@ -30,6 +38,9 @@ services:
       - CRON_STRINGS=* * * * * wget -qO /dev/null http://frontend/api/v2/superinspire/prune
     networks:
       - instantbox_net
+    deploy:
+      mode: replicated
+      replicas: 1
 
 networks:
   instantbox_net:

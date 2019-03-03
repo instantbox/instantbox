@@ -9,9 +9,14 @@ class InstantboxManager(object):
     CONTAINER_PREFIX = 'instantbox_managed_'
     TIMEOUT_LABEL = 'org.instantbox.variables.EXPIRATION_TIMESTAMP'
     OS_LIST = None
+    SWARM_MODE = False
 
     def __init__(self):
         self.client = docker.from_env()
+
+        SWARM_MODE = os.environ.get('SWARM_MODE')
+        if SWARM_MODE == '1' :
+            self.SWARM_MODE = True
 
         try:
             with open('manifest.json', 'r') as os_manifest:
@@ -43,18 +48,21 @@ class InstantboxManager(object):
 
         container_name = self.generateContainerName()
         try:
-            self.client.containers.run(
-                image=os_name,
-                cpu_period=100000,
-                cpu_quota=int('%s0000' % cpu),
-                mem_limit='%sm' % mem,
-                name=container_name,
-                ports=port_dict,
-                restart_policy={'Name': 'always'},
-                labels={self.TIMEOUT_LABEL: str.format('{:.0f}', os_timeout)},
-                tty=True,
-                detach=True,
-            )
+            if self.SWARM_MODE:
+                # TODO self.client.services.create
+            else:
+                self.client.containers.run(
+                    image=os_name,
+                    cpu_period=100000,
+                    cpu_quota=int('%s0000' % cpu),
+                    mem_limit='%sm' % mem,
+                    name=container_name,
+                    ports=port_dict,
+                    restart_policy={'Name': 'always'},
+                    labels={self.TIMEOUT_LABEL: str.format('{:.0f}', os_timeout)},
+                    tty=True,
+                    detach=True,
+                )
         except Exception:
             return None
         else:
@@ -62,31 +70,40 @@ class InstantboxManager(object):
 
     def get_container_ports(self, container_name):
         try:
-            ports = self.client.containers.get(
-                container_name).attrs['NetworkSettings']['Ports']
-            return {
-                port: mapped_ports[0]['HostPort']
-                for port, mapped_ports in ports.items()
-            }
+            if self.SWARM_MODE:
+                # TODO
+            else:
+                ports = self.client.containers.get(
+                    container_name).attrs['NetworkSettings']['Ports']
+                return {
+                    port: mapped_ports[0]['HostPort']
+                    for port, mapped_ports in ports.items()
+                }
         except Exception:
             return None
 
     def remove_timeout_containers(self):
-        for container in self.client.containers.list():
-            if container.name.startswith(self.CONTAINER_PREFIX):
-                timeout = container.labels.get(self.TIMEOUT_LABEL)
-                if timeout is not None and float(timeout) < time.time():
-                    self.is_rm_container(container.name)
+        if self.SWARM_MODE:
+            # TODO
+        else:
+            for container in self.client.containers.list():
+                if container.name.startswith(self.CONTAINER_PREFIX):
+                    timeout = container.labels.get(self.TIMEOUT_LABEL)
+                    if timeout is not None and float(timeout) < time.time():
+                        self.is_rm_container(container.name)
 
     def is_rm_container(self, container_id) -> bool:
-        try:
-            container = self.client.containers.get(container_id)
-        except docker.errors.NotFound:
-            return True
+        if self.SWARM_MODE:
+            # TODO
         else:
-            if container.name.startswith(self.CONTAINER_PREFIX):
-                container.remove(force=True)
-            return True
+            try:
+                container = self.client.containers.get(container_id)
+            except docker.errors.NotFound:
+                return True
+            else:
+                if container.name.startswith(self.CONTAINER_PREFIX):
+                    container.remove(force=True)
+                return True
 
     def is_os_available(self, osCode=None) -> bool:
         return osCode is not None and osCode in self.AVAILABLE_OS_LIST
