@@ -1,9 +1,8 @@
 version: '3'
 
 services:
-  server:
+  instantbox_backend:
     image: instantbox/instantbox:latest
-    container_name: instantbox_server
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
@@ -17,11 +16,8 @@ services:
         constraints:
           - node.role == manager
 
-  frontend:
+  instantbox_frontend:
     image: instantbox/instantbox-frontend:latest
-    container_name: instantbox_frontend
-    links:
-      - server
     ports:
       - 8888:80
     networks:
@@ -29,13 +25,10 @@ services:
     deploy:
       mode: global
 
-  cron:
+  instantbox_cron:
     image: xordiv/docker-alpine-cron
-    container_name: instantbox_cron
-    links:
-      - frontend
     environment:
-      - CRON_STRINGS=* * * * * wget -qO /dev/null http://frontend/api/v2/superinspire/prune
+      - CRON_STRINGS=* * * * * wget -qO /dev/null http://instantbox_frontend/api/v2/superinspire/prune
     networks:
       - instantbox_net
     deploy:
