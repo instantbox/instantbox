@@ -14,8 +14,7 @@ class InstantboxManager(object):
     def __init__(self):
         self.client = docker.from_env()
 
-        SWARM_MODE = os.environ.get('SWARM_MODE')
-        if SWARM_MODE == '1' :
+        if os.environ.get('SWARM_MODE') == '1' :
             self.SWARM_MODE = True
 
         try:
