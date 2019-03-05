@@ -48,7 +48,19 @@ class InstantboxManager(object):
         container_name = self.generateContainerName()
         try:
             if self.SWARM_MODE:
-                # TODO self.client.services.create
+                resource_control = docker.types.Resources(
+                    cpu_limit='%s' % cpu,
+                    mem_limit='%s' % mem,
+                )
+                self.client.services.create(
+                    image=os_name,
+                    name=container_name,
+                    endpoint_spec=docker.types.EndpointSpec(ports={open_port: 1588}),
+                    restart_policy=docker.types.RestartPolicy(condition='any'),
+                    labels={self.TIMEOUT_LABEL: str.format('{:.0f}', os_timeout)},
+                    resources=resource_control,
+                    tty=True,
+                )
             else:
                 self.client.containers.run(
                     image=os_name,
@@ -70,7 +82,12 @@ class InstantboxManager(object):
     def get_container_ports(self, container_name):
         try:
             if self.SWARM_MODE:
-                # TODO
+                ports = self.client.services.get(
+                    container_name).attrs['Spec']['EndpointSpec']['Ports']
+                return {
+                    item['TargetPort']: item['PublishedPort']
+                    for item in ports
+                }
             else:
                 ports = self.client.containers.get(
                     container_name).attrs['NetworkSettings']['Ports']
