@@ -50,8 +50,8 @@ class InstantboxManager(object):
         try:
             if self.SWARM_MODE:
                 resource_control = docker.types.Resources(
-                    cpu_limit='%s' % cpu,
-                    mem_limit='%s' % mem,
+                    cpu_limit=int(cpu),
+                    mem_limit=int(mem),
                 )
                 self.client.services.create(
                     image=os_name,
@@ -59,15 +59,15 @@ class InstantboxManager(object):
                     endpoint_spec=docker.types.EndpointSpec(ports={open_port: 1588}),
                     restart_policy=docker.types.RestartPolicy(condition='any'),
                     labels={self.TIMEOUT_LABEL: str.format('{:.0f}', os_timeout)},
-                    resources=resource_control,
+                    # resources=resource_control,
                     tty=True,
                 )
             else:
                 self.client.containers.run(
                     image=os_name,
                     cpu_period=100000,
-                    cpu_quota=int('%s0000' % cpu),
-                    mem_limit='%sm' % mem,
+                    cpu_quota=int('%d0000' % cpu),
+                    mem_limit='%sm' % str(mem),
                     name=container_name,
                     ports=port_dict,
                     restart_policy={'Name': 'always'},
@@ -75,7 +75,7 @@ class InstantboxManager(object):
                     tty=True,
                     detach=True,
                 )
-        except Exception:
+        except KeyboardInterrupt:
             return None
         else:
             return container_name
@@ -85,7 +85,7 @@ class InstantboxManager(object):
             if self.SWARM_MODE:
                 service_name = container_name
                 ports = self.client.services.get(
-                    service_name).attrs['Spec']['EndpointSpec']['Ports']
+                    service_name).attrs['Endpoint']['Ports']
                 return {
                     item['TargetPort']: item['PublishedPort']
                     for item in ports
@@ -102,8 +102,11 @@ class InstantboxManager(object):
 
     def remove_timeout_containers(self):
         if self.SWARM_MODE:
-            # TODO
-            pass
+            for container in self.client.services.list():
+                if container.name.startswith(self.CONTAINER_PREFIX):
+                    timeout = container.attrs['Spec']['Labels'][self.TIMEOUT_LABEL]
+                    if timeout is not None and float(timeout) < time.time():
+                        self.is_rm_container(container.name)
         else:
             for container in self.client.containers.list():
                 if container.name.startswith(self.CONTAINER_PREFIX):
@@ -113,8 +116,14 @@ class InstantboxManager(object):
 
     def is_rm_container(self, container_id) -> bool:
         if self.SWARM_MODE:
-            # TODO
-            pass
+            try:
+                container = self.client.services.get(container_id)
+            except docker.errors.NotFound:
+                return True
+            else:
+                if container.name.startswith(self.CONTAINER_PREFIX):
+                    container.remove()
+                return True
         else:
             try:
                 container = self.client.containers.get(container_id)
@@ -135,9 +144,12 @@ class InstantboxManager(object):
 
 if __name__ == '__main__':
     test = InstantboxManager()
-    container_name = test.is_create_container('512', 1,
-                                              'instantbox/ubuntu:latest',
+    container_name = test.is_create_container(4, 0.1,
+                                              'instantbox/alpine:latest',
                                               time.time())
     test.get_container_ports(container_name)
     test.remove_timeout_containers()
     test.is_rm_container(container_name)
+
+
+
