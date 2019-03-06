@@ -1,4 +1,5 @@
 import docker
+import os
 import random
 import string
 import time
@@ -30,8 +31,8 @@ class InstantboxManager(object):
             )
 
         self.AVAILABLE_OS_LIST = []
-        for os in self.OS_LIST:
-            for ver in os['subList']:
+        for os_item in self.OS_LIST:
+            for ver in os_item['subList']:
                 self.AVAILABLE_OS_LIST.append(ver['osCode'])
 
     def is_create_container(self,
