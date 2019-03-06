@@ -103,8 +103,17 @@ def getOS():
 
         if os_mem is None:
             os_mem = 512
+        elif isinstance(os_mem, str):
+            os_mem = int(os_mem)
+        else:
+            raise Exception
         if os_cpu is None:
             os_cpu = 1
+        elif isinstance(os_cpu, str):
+            os_cpu = int(os_cpu)
+        else:
+            raise Exception
+
         max_timeout = 3600 * 24 + time.time()
         if os_timeout is None:
             os_timeout = max_timeout
@@ -113,8 +122,8 @@ def getOS():
 
         try:
             container_name = instantboxManager.is_create_container(
-                mem=os_mem,
-                cpu=os_cpu,
+                mem=int(os_mem),
+                cpu=int(os_cpu),
                 os_name=os_name,
                 open_port=os_port,
                 os_timeout=os_timeout,
