@@ -82,8 +82,9 @@ class InstantboxManager(object):
     def get_container_ports(self, container_name):
         try:
             if self.SWARM_MODE:
+                service_name = container_name
                 ports = self.client.services.get(
-                    container_name).attrs['Spec']['EndpointSpec']['Ports']
+                    service_name).attrs['Spec']['EndpointSpec']['Ports']
                 return {
                     item['TargetPort']: item['PublishedPort']
                     for item in ports
@@ -101,6 +102,7 @@ class InstantboxManager(object):
     def remove_timeout_containers(self):
         if self.SWARM_MODE:
             # TODO
+            pass
         else:
             for container in self.client.containers.list():
                 if container.name.startswith(self.CONTAINER_PREFIX):
@@ -111,6 +113,7 @@ class InstantboxManager(object):
     def is_rm_container(self, container_id) -> bool:
         if self.SWARM_MODE:
             # TODO
+            pass
         else:
             try:
                 container = self.client.containers.get(container_id)
