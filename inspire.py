@@ -18,6 +18,9 @@ SERVERURL = os.environ.get('SERVERURL')
 if SERVERURL is None:
     SERVERURL = ''
 
+SWARM_MODE = False
+if os.environ.get('SWARM_MODE') == '1' :
+    SWARM_MODE = True
 
 @app.route('/v2/superinspire')
 def hello():
@@ -100,66 +103,76 @@ def getOS():
         os_cpu = request.args.get('cpu')
         os_port = request.args.get('port')
         os_timeout = request.args.get('timeout')
-
-        if os_mem is None:
-            os_mem = 512
-        elif isinstance(os_mem, str):
-            os_mem = int(os_mem)
-        else:
-            raise Exception
-        if os_cpu is None:
-            os_cpu = 1
-        elif isinstance(os_cpu, str):
-            os_cpu = int(os_cpu)
-        else:
-            raise Exception
-
-        max_timeout = 3600 * 24 + time.time()
-        if os_timeout is None:
-            os_timeout = max_timeout
-        else:
-            os_timeout = min(float(os_timeout), max_timeout)
-
         try:
-            container_name = instantboxManager.is_create_container(
-                mem=int(os_mem),
-                cpu=int(os_cpu),
-                os_name=os_name,
-                open_port=os_port,
-                os_timeout=os_timeout,
-            )
-
-            if container_name is None:
-                raise Exception
+            if os_mem is None:
+                os_mem = 512
+            elif isinstance(os_mem, str):
+                os_mem = int(os_mem)
             else:
-                ports = instantboxManager.get_container_ports(container_name)
-                webshell_port = ports['1588/tcp']
-                if os_port is not None:
-                    open_port = ports['{}/tcp'.format(os_port)]
-
+                raise Exception
+            if os_cpu is None:
+                os_cpu = 1
+            elif isinstance(os_cpu, str):
+                os_cpu = int(os_cpu)
+            else:
+                raise Exception
         except Exception:
             response = Response(
                 json.dumps({
-                    'message': 'RUN docker containers ERROR',
+                    'message': 'os_mem or os_cpu argument ERROR',
                     'shareUrl': '',
                     'statusCode': 0,
                 }),
                 mimetype='application/json')
         else:
-            response = Response(
-                json.dumps({
-                    'message':
-                    'SUCCESS',
-                    'shareUrl':
-                    'http://{}:{}'.format(SERVERURL, webshell_port),
-                    'openPort':
-                    open_port,
-                    'statusCode':
-                    1,
-                    'containerId':
-                    container_name,
-                }),
-                mimetype='application/json')
+            max_timeout = 3600 * 24 + time.time()
+            if os_timeout is None:
+                os_timeout = max_timeout
+            else:
+                os_timeout = min(float(os_timeout), max_timeout)
+            try:
+
+                container_name = instantboxManager.is_create_container(
+                    mem=os_mem,
+                    cpu=os_cpu,
+                    os_name=os_name,
+                    os_timeout=time.time(),
+                    open_port=os_port,
+                )
+                if container_name is None:
+                    raise Exception
+                else:
+                    ports = instantboxManager.get_container_ports(container_name)
+                    if '1588/tcp' in ports:
+                        webshell_port = ports['1588/tcp']
+                    else:
+                        webshell_port = ports[1588]
+
+                    if os_port is not None and SWARM_MODE == True:
+                        open_port = ports['{}/tcp'.format(os_port)]
+            except Exception:
+                response = Response(
+                    json.dumps({
+                        'message': 'RUN docker containers ERROR',
+                        'shareUrl': '',
+                        'statusCode': 0,
+                    }),
+                    mimetype='application/json')
+            else:
+                response = Response(
+                    json.dumps({
+                        'message':
+                        'SUCCESS',
+                        'shareUrl':
+                        'http://{}:{}'.format(SERVERURL, webshell_port),
+                        'openPort':
+                        open_port,
+                        'statusCode':
+                        1,
+                        'containerId':
+                        container_name,
+                    }),
+                    mimetype='application/json')
 
     response.headers.add('Server', 'python flask')
     response.headers['Access-Control-Allow-Origin'] = '*'

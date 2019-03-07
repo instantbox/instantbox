@@ -41,25 +41,37 @@ class InstantboxManager(object):
                             os_name,
                             os_timeout,
                             open_port=None):
-        if open_port is None:
-            port_dict = {'1588/tcp': None}
+        if self.SWARM_MODE:
+            if open_port is None:
+                port_dict = {None: 1588}
+            else:
+                # port_dict = {1588: None, open_port: None}
+                port_dict = {None: 1588}
         else:
-            port_dict = {'1588/tcp': None, '{}/tcp'.format(open_port): None}
+            if open_port is None:
+                port_dict = {'1588/tcp': None}
+            else:
+                port_dict = {'1588/tcp': None, '{}/tcp'.format(open_port): None}
+
 
         container_name = self.generateContainerName()
         try:
             if self.SWARM_MODE:
+                # Memory limit in Bytes
+                # CPU limit in units of 10^9 CPU shares
+                mem = mem * 1024 * 1024
+                cpu = cpu*1000000000
                 resource_control = docker.types.Resources(
-                    cpu_limit=int(cpu),
-                    mem_limit=int(mem),
+                    cpu_limit=cpu,
+                    mem_limit=mem,
                 )
                 self.client.services.create(
                     image=os_name,
                     name=container_name,
-                    endpoint_spec=docker.types.EndpointSpec(ports={open_port: 1588}),
+                    endpoint_spec=docker.types.EndpointSpec(ports=port_dict),
                     restart_policy=docker.types.RestartPolicy(condition='any'),
                     labels={self.TIMEOUT_LABEL: str.format('{:.0f}', os_timeout)},
-                    # resources=resource_control,
+                    resources=resource_control,
                     tty=True,
                 )
             else:
@@ -75,7 +87,7 @@ class InstantboxManager(object):
                     tty=True,
                     detach=True,
                 )
-        except KeyboardInterrupt:
+        except Exception:
             return None
         else:
             return container_name
@@ -144,9 +156,9 @@ class InstantboxManager(object):
 
 if __name__ == '__main__':
     test = InstantboxManager()
-    container_name = test.is_create_container(4, 0.1,
+    container_name = test.is_create_container(200, 1,
                                               'instantbox/alpine:latest',
-                                              time.time())
+                                              time.time(), 85)
     test.get_container_ports(container_name)
     test.remove_timeout_containers()
     test.is_rm_container(container_name)
