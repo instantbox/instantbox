@@ -102,8 +102,6 @@ def getOS():
         os_mem = request.args.get('mem')
         os_cpu = request.args.get('cpu')
         os_port = request.args.get('port')
-        if SWARM_MODE:
-            os_port = None
         os_timeout = request.args.get('timeout')
         try:
             if os_mem is None:
@@ -133,12 +131,11 @@ def getOS():
             else:
                 os_timeout = min(float(os_timeout), max_timeout)
             try:
-
                 container_name = instantboxManager.is_create_container(
                     mem=os_mem,
                     cpu=os_cpu,
                     os_name=os_name,
-                    os_timeout=time.time(),
+                    os_timeout=os_timeout,
                     open_port=os_port,
                 )
                 if container_name is None:

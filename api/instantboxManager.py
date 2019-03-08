@@ -158,8 +158,9 @@ if __name__ == '__main__':
     test = InstantboxManager()
     container_name = test.is_create_container(200, 1,
                                               'instantbox/alpine:latest',
-                                              time.time(), 85)
-    test.get_container_ports(container_name)
+                                              1652064213, 80)
+    print(container_name)
+    print(test.get_container_ports(container_name))
     test.remove_timeout_containers()
     test.is_rm_container(container_name)
 
