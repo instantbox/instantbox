@@ -165,7 +165,8 @@ def getOS():
                         'shareUrl':
                         'http://{}:{}'.format(SERVERURL, webshell_port),
                         'openPort':
-                        open_port,
+                        "3333",
+                        # TODO fix frontend bug.
                         'statusCode':
                         1,
                         'containerId':
