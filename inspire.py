@@ -101,7 +101,8 @@ def getOS():
     else:
         os_mem = request.args.get('mem')
         os_cpu = request.args.get('cpu')
-        os_port = request.args.get('port')
+        # os_port = request.args.get('port')
+        os_port = None
         os_timeout = request.args.get('timeout')
         try:
             if os_mem is None:
