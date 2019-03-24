@@ -6,7 +6,7 @@
 
 # instantbox
 
-在不到 30s 内得到一个干净、开箱即用的临时 Linux 系统.
+在不到 30s 內得到一個乾淨、開箱即用的臨時 Linux 系統.
 
 [![Travis CI](https://badgen.net/travis/instantbox/instantbox)](https://travis-ci.com/instantbox/instantbox)
 [![Docker](https://badgen.net/badge//instantbox%2Finstantbox?icon=docker)](https://hub.docker.com/r/instantbox/instantbox)
@@ -18,44 +18,44 @@
 </div>
 
 
-## 介绍
+## 介紹
 
-### instantbox 是什么？
+### instantbox 是什麼？
 
-它能够让你仅通过浏览器的情况下，在不到 30s 的时间内，就可以使用 web 来操作一个开箱即用的 Linux 系统，当然这里的 "系统" 是通过 docker 实现的，所以也不能直接认为就是如同 KVM 般隔离更严格的虚拟化系统。
-
-
-### 所以 instantbox 可以用来干什么？
-
-1. 当你在演讲时，临时需要一个干净的 Linux 环境，你就可以尝试使用它为观众做演示
-2. 当学校教学/LUG 活动需要大家一起进行 Linux 实验时，你可以让暂时无法安装 Linux 的同学体验到 Linux 的魅力
-3. 当你有了一个灵感，想要在干净的环境下尝试，为什么不使用开箱即用的 instantbox 呢？
-4. 当你在外边，却没有携带设备时，instantbox 甚至可以让你在任何一台设备上对服务器进行管理（跳板机）
-5. 看到 GitHub 上某个非常感兴趣的项目想要尝试，却因为该项目运行在 Linux 而望而却步？ instantbox 可以让你立刻获得一个干净的环境，你甚至可以开放一个端口用于测试需要使用端口的程序（例如开放 80 端口进行测试 nginx）
-6. instantbox 由于使用 docker 作为支持，所以我们使用了 cgroups 来对性能进行管理，如果你想测试的你的某个应用在某个性能下是否能够运行，使用 instantbox 是一个非常好的选择
-
-instantbox 更多的用处由你来创想.
+它能夠讓你僅透過瀏覽器的情況下，在不到30s 的時間內，就可以使用web 來操作一個開箱即用的Linux 系統，當然這裡的"系統" 是通過docker 實現的，所以也不能直接認為就是如同KVM 般隔離更嚴格的虛擬化系統。
 
 
-## 快速开始
+### 所以 instantbox 可以用來幹什麼？
 
-你可以在这里选择一个喜欢的系统，然后系统将自动创建该系统的容器，并自动打开新的网页进入 webshell 交互.
+1. 當你在演講時，臨時需要一個乾凈的 Linux 環境，你就可以嘗試使用它為觀眾做呈現
+2. 當學校教學/LUG 活動需要大家一起進行 Linux 實驗時，你可以讓暫時無法安裝 Linux 的同學體驗到 Linux 的魅力
+3. 當你有了一個靈感，想要在乾凈的環境下嘗試，為什麽不使用開箱即用的 instantbox 呢？
+4. 當你在外邊，卻沒有攜帶設備時，instantbox 甚至可以讓你在任何一臺設備上對服務器進行管理（跳板機）
+5. 看到 GitHub 上某個非常感興趣的項目想要嘗試，卻因為該項目運行在 Linux 而望而卻步？ instantbox 可以讓你立刻獲得一個乾凈的環境，你甚至可以開放一個通訊埠(Port)用於測試需要使用通訊埠的程序（例如開放 80 通訊埠進行測試 nginx）
+6. instantbox 由於使用 docker 作為支持，所以我們使用了 cgroups 來對性能進行管理，如果你想測試的你的某個應用在某個性能下是否能夠運行，使用 instantbox 是一個非常好的選擇
+
+instantbox 更多的用處由你來創想.
+
+
+## 快速開始
+
+你可以在這裡選擇一個喜歡的系統，然後系統將自動創建該系統的容器，並自動打開新的網頁進入 webshell 互動.
 
 ![Demo screenshot](https://user-images.githubusercontent.com/5880908/53613565-6237a500-3ba4-11e9-9e39-8ea48cee73ee.png)
 
 
 ## 如何部署
 
-如果你认为官方的服务器提供的体验过慢的话，欢迎自行部署一个~，部署 instantbox 非常简单，你需要拥有以下环境:
+如果你認為官方的服務器提供的體驗過慢的話，歡迎自行部署一個~，部署 instantbox 非常簡單，你需要擁有以下環境:
 
-* 已装有 docker 的 Linux 系统
+* 已裝有 docker 的 Linux 系統
 
 ```bash
 mkdir instantbox && cd $_
 bash <(curl -sSL https://raw.githubusercontent.com/instantbox/instantbox/master/init.sh)
 ```
 
-默认请访问 `http://<ip地址>:8888` 来进行测试.
+預設請訪問 `http://<ip地址>:8888` 來進行測試.
 
 
 ## 捐助
