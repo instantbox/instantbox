@@ -1,4 +1,4 @@
-<p align="right">繁 | <a href="./README-zh_cn.md">简</a> | <a href="../README.md">English</a></p>
+<p align="right">繁 | <a href="./README-zh_cn.md">简</a> | <a href="../README.md">En</a></p>
 
 <div align="center">
 
