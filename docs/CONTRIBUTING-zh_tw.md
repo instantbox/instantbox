@@ -1,4 +1,4 @@
-<p align="right">繁體中文 | <a href="./CONTRIBUTING-zh_cn.md">简体中文</a> | <a href="../CONTRIBUTING.md">English</a></p>
+<p align="right">繁 | <a href="./CONTRIBUTING-zh_cn.md">简</a> | <a href="../CONTRIBUTING.md">English</a></p>
 
 ### 一起來貢獻 instantbox 吧！
 
