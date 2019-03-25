@@ -46,7 +46,7 @@ instantbox 更多的用處由你來創想.
 
 ## 如何部署
 
-如果你認為官方的服務器提供的體驗過慢的話，歡迎自行部署一個~，部署 instantbox 非常簡單，你需要擁有以下環境:
+如果你認為官方的服務器提供的效能過慢的話，歡迎自行部署一個~，部署 instantbox 非常簡單，你需要擁有以下環境:
 
 * 已裝有 docker 的 Linux 系統
 
@@ -55,21 +55,21 @@ mkdir instantbox && cd $_
 bash <(curl -sSL https://raw.githubusercontent.com/instantbox/instantbox/master/init.sh)
 ```
 
-預設請訪問 `http://<ip地址>:8888` 來進行測試.
+預設請透過 `http://<ip地址>:8888` 來進行測試.
 
 
 ## 捐助
 
-目前服务器资源都是我自费提供的，学生党压力非常大...
+目前服務器資源都是我自費提供的，學生的壓力非常大...
 
-为了给大家提供更好的体验，我们接受个人/公司对于服务器资源 **(!! 急需 !!)** 和宣传帮助上的赞助，但是暂不接受任何资金上的赞助～
+為了給大家提供更好的體驗，我們接受個人/公司對於服務器資源 **(!! 急需 !!)** 和宣傳幫助上的贊助，但是暫不接受任何資金上的贊助～
 
-如果 instantbox 有帮助到你，并且能够有条件和兴趣提供赞助。非常希望您能与我们取得联系，请发送邮件到 team@instantbox.org 感激不尽！
+如果 instantbox 有幫助到你，並且能夠有條件和興趣提供贊助。非常希望您能與我們取得聯繫，請發送郵件到 team@instantbox.org 感激不盡！
 
 
-## 有疑问？
+## 有疑問？
 
-请提交 issue 或前往 [telegram](https://t.me/joinchat/HtYtxRSerOwrMLg_2_wZTQ) 与我们交流。
+請提交 issue 或前往 [telegram](https://t.me/joinchat/HtYtxRSerOwrMLg_2_wZTQ) 與我們交流。
 
 
 ## 感谢
@@ -78,5 +78,4 @@ bash <(curl -sSL https://raw.githubusercontent.com/instantbox/instantbox/master/
 
 
 ## 
-愿你通过 instantbox 更加方便的接触 Linux 和开源，这是我们最大的梦想.
-
+願你透過 instantbox 更加方便的接觸 Linux 和開源，這是我們最大的夢想.
