@@ -1,4 +1,4 @@
-<p align="right">简体中文 | <a href="./API-zh_tw.md">繁體中文</a></p>
+<p align="right">简 | <a href="./API-zh_tw.md">繁</a></p>
 
 # instantbox 服务API文档 
 
