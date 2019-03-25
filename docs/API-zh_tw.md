@@ -1,3 +1,5 @@
+<p align="right">繁體中文 | <a href="./API-zh_.md">简体中文</a></p>
+
 # instantbox 服務API文件
 
 文件版本：0.0.3
