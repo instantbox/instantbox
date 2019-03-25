@@ -22,31 +22,31 @@
 
 ### instantbox 是什麼？
 
-它能夠讓你僅透過瀏覽器的情況下，在不到30s 的時間內，就可以使用web 來操作一個開箱即用的Linux 系統，當然這裡的"系統" 是通過docker 實現的，所以也不能直接認為就是如同KVM 般隔離更嚴格的虛擬化系統。
+它能夠讓你僅透過瀏覽器的情況下，在不到30s 的時間內，就可以使用web 來操作一個開箱即用的Linux 系統，當然這裡的"系統" 是透過docker 實現的，所以不能直接認為就是如KVM 般隔離更嚴格的虛擬化系統。
 
 
-### 所以 instantbox 可以用來幹什麼？
+### 所以 instantbox 可以用來做什麼？
 
 1. 當你在演講時，臨時需要一個乾凈的 Linux 環境，你就可以嘗試使用它為觀眾做呈現
 2. 當學校教學/LUG 活動需要大家一起進行 Linux 實驗時，你可以讓暫時無法安裝 Linux 的同學體驗到 Linux 的魅力
 3. 當你有了一個靈感，想要在乾凈的環境下嘗試，為什麽不使用開箱即用的 instantbox 呢？
-4. 當你在外邊，卻沒有攜帶設備時，instantbox 甚至可以讓你在任何一臺設備上對服務器進行管理（跳板機）
-5. 看到 GitHub 上某個非常感興趣的項目想要嘗試，卻因為該項目運行在 Linux 而望而卻步？ instantbox 可以讓你立刻獲得一個乾凈的環境，你甚至可以開放一個通訊埠(Port)用於測試需要使用通訊埠的程序（例如開放 80 通訊埠進行測試 nginx）
-6. instantbox 由於使用 docker 作為支持，所以我們使用了 cgroups 來對性能進行管理，如果你想測試的你的某個應用在某個性能下是否能夠運行，使用 instantbox 是一個非常好的選擇
+4. 當你人在外面，卻沒有攜帶設備時，instantbox 甚至可以讓你在任何一臺設備上對服務器進行管理（跳板機）
+5. 看到 GitHub 上某個非常感興趣的項目想要嘗試，卻因為該項目運行在 Linux 而望而卻步？ instantbox 可以讓你立刻獲得一個乾凈的環境，你甚至可以開放一個Port用於測試需要使用Port的程序（例如開放 80 Port進行測試 nginx）
+6. instantbox 由於使用 docker 作為支持，所以我們使用了 cgroups 來管理性能，如果你想測試的你的某個應用在某個性能下是否能夠運行，使用 instantbox 是一個非常好的選擇
 
-instantbox 更多的用處由你來創想.
+instantbox 更多的好處由你來創想.
 
 
 ## 快速開始
 
-你可以在這裡選擇一個喜歡的系統，然後系統將自動創建該系統的容器，並自動打開新的網頁進入 webshell 互動.
+你可以在這裡選擇一個喜歡的系統，系統將自動創建該系統的容器，並自動打開新的網頁進入 webshell 使用.
 
 ![Demo screenshot](https://user-images.githubusercontent.com/5880908/53613565-6237a500-3ba4-11e9-9e39-8ea48cee73ee.png)
 
 
-## 如何部署
+## 如何安裝
 
-如果你認為官方的服務器提供的效能過慢的話，歡迎自行部署一個~，部署 instantbox 非常簡單，你需要擁有以下環境:
+如果你認為官方的服務器提供的效能過慢的話，歡迎自行安裝一個~，安裝 instantbox 非常簡單，你需要擁有以下環境:
 
 * 已裝有 docker 的 Linux 系統
 
@@ -55,7 +55,7 @@ mkdir instantbox && cd $_
 bash <(curl -sSL https://raw.githubusercontent.com/instantbox/instantbox/master/init.sh)
 ```
 
-預設請透過 `http://<ip地址>:8888` 來進行測試.
+預設請透過 `http://<ip地址>:8888` 進行測試.
 
 
 ## 捐助
