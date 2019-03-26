@@ -1,4 +1,4 @@
-<p align="right">English | <a href="./docs/CONTRIBUTING-zh.md">中文</a></p>
+<p align="right">En | <a href="./docs/CONTRIBUTING-zh_cn.md">简</a> | <a href="./docs/CONTRIBUTING-zh_tw.md">繁</a></p>
 
 # Contributing
 

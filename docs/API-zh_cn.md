@@ -1,4 +1,6 @@
-# instantbox 服务API文档
+<p align="right">简 | <a href="./API-zh_tw.md">繁</a></p>
+
+# instantbox 服务API文档 
 
 文档版本：0.0.3
 
