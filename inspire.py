@@ -124,7 +124,6 @@ def getOS():
                 raise Exception
             else:
                 ports = instantboxManager.get_container_ports(container_name)
-                webshell_port = ports['1588/tcp']
                 if os_port is not None:
                     open_port = ports['{}/tcp'.format(os_port)]
 
@@ -142,7 +141,7 @@ def getOS():
                     'message':
                     'SUCCESS',
                     'shareUrl':
-                    'http://{}:{}'.format(SERVERURL, webshell_port),
+                    '/console/{}'.format(container_name),
                     'openPort':
                     open_port,
                     'statusCode':

@@ -37,24 +37,32 @@ class InstantboxManager(object):
                             os_timeout,
                             open_port=None):
         if open_port is None:
-            port_dict = {'1588/tcp': None}
+            port_dict = {}
         else:
-            port_dict = {'1588/tcp': None, '{}/tcp'.format(open_port): None}
+            port_dict = {'{}/tcp'.format(open_port): None}
 
         container_name = self.generateContainerName()
         try:
+            container_network = self.client.networks.create(
+                name=container_name + '_net',
+                driver="bridge",
+                internal=True,
+            )
             self.client.containers.run(
                 image=os_name,
                 cpu_period=100000,
                 cpu_quota=int('%s0000' % cpu),
                 mem_limit='%sm' % mem,
                 name=container_name,
+                hostname=container_name,
                 ports=port_dict,
                 restart_policy={'Name': 'always'},
                 labels={self.TIMEOUT_LABEL: str.format('{:.0f}', os_timeout)},
                 tty=True,
                 detach=True,
             )
+            container_network.connect(container_name)
+            container_network.connect('instantbox_frontend')
         except Exception:
             return None
         else:
@@ -66,6 +74,7 @@ class InstantboxManager(object):
                 container_name).attrs['NetworkSettings']['Ports']
             return {
                 port: mapped_ports[0]['HostPort']
+                if mapped_ports is not None else None
                 for port, mapped_ports in ports.items()
             }
         except Exception:
@@ -81,6 +90,12 @@ class InstantboxManager(object):
     def is_rm_container(self, container_id) -> bool:
         try:
             container = self.client.containers.get(container_id)
+            if container.name.startswith(self.CONTAINER_PREFIX):
+                container.remove(force=True)
+                container_network = self.client.networks.get(
+                    network_id=container_name + '_net',
+                )
+                container_network.remove()
         except docker.errors.NotFound:
             return True
         else:
@@ -93,7 +108,7 @@ class InstantboxManager(object):
 
     def generateContainerName(self) -> str:
         return self.CONTAINER_PREFIX + ''.join(
-            random.sample(string.ascii_letters + string.digits, 16))
+            random.sample(string.ascii_lowercase + string.digits, 16))
 
 
 if __name__ == '__main__':
