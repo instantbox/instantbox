@@ -9,7 +9,7 @@
 在不到 30s 内得到一个干净、开箱即用的临时 Linux 系统.
 
 [![Travis CI](https://badgen.net/travis/instantbox/instantbox)](https://travis-ci.com/instantbox/instantbox)
-[![Docker](https://badgen.net/badge//instantbox%2Finstantbox?icon=docker)](https://hub.docker.com/r/instantbox/instantbox)
+[![Docker](https://badgen.net/badge/icon/instantbox?icon=docker&label)](https://hub.docker.com/r/instantbox/instantbox)
 ![Python 3.6](https://badgen.net/badge/python/3.6/3776ab)
 ![Code Style Pep8](https://badgen.net/badge/code%20style/pep8/ffd343)
 [![Chat on Telegram](https://badgen.net/badge/chat/on%20telegram/0088cc)](https://t.me/joinchat/HtYtxRSerOwrMLg_2_wZTQ)
