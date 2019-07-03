@@ -22,7 +22,7 @@ services:
       - instantbox_net
 
   cron:
-    image: xordiv/docker-alpine-cron
+    image: instantbox/cron:latest
     container_name: instantbox_cron
     links:
       - frontend
