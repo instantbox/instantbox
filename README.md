@@ -6,7 +6,7 @@
 
 # instantbox
 
-Get a clean, ready-to-go Linux box in seconds.
+
 
 [![Travis CI](https://badgen.net/travis/instantbox/instantbox)](https://travis-ci.com/instantbox/instantbox)
 [![Docker](https://badgen.net/badge/icon/instantbox?icon=docker&label)](https://hub.docker.com/r/instantbox/instantbox)
